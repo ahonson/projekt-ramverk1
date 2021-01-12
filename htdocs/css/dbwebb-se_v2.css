@@ -6942,8 +6942,8 @@ a.rm-button.rm-clicked .rm-button-face-2 {
 .outer-wrap-header {
     /* background-color: #aaa; */
     background-image: linear-gradient(45deg, #f1f1f1 25%, transparent 25%), linear-gradient(-45deg, #f1f1f1 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f1f1f1 75%), linear-gradient(-45deg, transparent 75%, #f1f1f1 75%);
-    background-size: 200px 200px;
-    background-position: 0 0, 0 100px, 100px -100px, -100px 0px;
+    background-size: 50px 50px;
+    background-position: 0 0, 0 25px, 25px -25px, -25px 0px;
     height: 100px;
     font-size: 20px;
 }
@@ -6978,6 +6978,14 @@ td {
     text-align: center !important;
     color: #eee;
     padding: 5px;
+}
+
+td a {
+    color: #FFFF66;
+}
+
+td a:visited {
+    color: #eec;
 }
 
 tr:nth-child(even) {

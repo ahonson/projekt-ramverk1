@@ -163,7 +163,8 @@ INSERT INTO User (email, password, name, gravatar) VALUES ("joe@joe.joe", "joe12
 INSERT INTO User (email, password, name, gravatar) VALUES ("jane@jane.jane", "jane123", "Jane Doe", "https://www.gravatar.com/avatar/42cde8637248112a6e210f053603b600?s=32&d=identicon&r=PG");
 INSERT INTO User (email, password, name, gravatar) VALUES ("jack@jack.jack", "jack123", "Jack Doe", "https://www.gravatar.com/avatar/322e96010531f4692922fc2b22482ed1?s=32&d=identicon&r=PG");
 INSERT INTO User (email, password, name, gravatar) VALUES ("hate@hate.hate", "hate123", "Hate Doe", "https://www.gravatar.com/avatar/bf3ad5e9ebf719bda30b3d500dde1ea7?s=32&d=identicon&r=PG");
-INSERT INTO Question (userid, title, textbody) VALUES (1, "Hur blir jag världens bästa spelare?", "Jag har stora ambitioner men vet inte hur jag ska komma igång. Hjälp mig!");
+INSERT INTO Question (userid, title, textbody) VALUES (1, "Hur blir jag bäst i världen?", "Jag har stora ambitioner men vet inte hur jag ska komma igång. Hjälp mig!");
+INSERT INTO Question (userid, title, textbody) VALUES (2, "Damgambit", "Som svart har jag länge valt att avböja boendeoffret, men på sistone har jag börjat experimentera med antagen damgambit. Det verkar funka bra, men främst mot svaga spelare. Vad tycker ni?");
 INSERT INTO Answer (userid, questionid, textbody) VALUES (2, 1, "Man ska träna slutspel och plugga öppningar.");
 INSERT INTO Tag (name) VALUES ("slutspel");
 INSERT INTO Tag (name) VALUES ("öppning");
@@ -174,6 +175,7 @@ INSERT INTO QComment (userid, questionid, textbody) VALUES (3, 1, "Intressant fr
 INSERT INTO AComment (userid, answerid, textbody) VALUES (3, 1, "Mycket bra svar!");
 INSERT INTO QuestionHasTag (tagid, questionid) VALUES (3, 1);
 INSERT INTO QuestionHasTag (tagid, questionid) VALUES (4, 1);
+INSERT INTO QuestionHasTag (tagid, questionid) VALUES (2, 2);
 INSERT INTO UserRatesAnswer (userid, answerid) VALUES (3, 1);
 INSERT INTO UserRatesQuestion (userid, questionid) VALUES (3, 1);
 INSERT INTO UserRatesAComment (userid, commentid) VALUES (2, 1);

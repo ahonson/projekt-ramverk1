@@ -18,23 +18,22 @@ endif;
 <table class="usertable">
     <tr>
         <th>Questionid</th>
-        <th>Userid</th>
+        <!-- <th>Userid</th> -->
         <th>Title</th>
-        <th>Textbody</th>
         <th>Created</th>
         <th>Score</th>
+        <th>Tags</th>
     </tr>
-    <?php foreach ($items as $item) : ?>
+    <?php foreach ($items as $index => $item) : ?>
     <tr>
         <td class="bookid">
             <!-- <a href="<?= url("book/update/{$item->id}"); ?>"><?= $item->id ?></a> -->
             <?= $item->id ?>
         </td>
-        <td class=""><?= $item->userid ?></td>
-        <td class=""><?= $item->title ?></td>
-        <td class=""><?= $item->textbody ?></td>
+        <td class=""><a href="<?= url("question/question/{$item->id}"); ?>"><?= $item->title ?></a></td>
         <td><?= $item->created ?></td>
         <td><?= $item->rating ?></td>
+        <td><?= $mytags[$index] ?></td>
     </tr>
     <?php endforeach; ?>
 </table>
