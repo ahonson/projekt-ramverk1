@@ -5,6 +5,9 @@ namespace artes\Question;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 use artes\Tag\Tag;
+use artes\Answer\Answer;
+use artes\User\User;
+use artes\QComment\QComment;
 // use artes\Book\HTMLForm\CreateForm;
 // use artes\Book\HTMLForm\EditForm;
 // use artes\Book\HTMLForm\DeleteForm;
@@ -32,15 +35,34 @@ class QuestionController implements ContainerInjectableInterface
         $question = new Question();
         $question->setDb($this->di->get("dbqb"));
         $questions = $question->findAll();
+        $res = $this->questToTag($questions);
+        $mytags = $this->getTags($res);
+        $page->add("question/overview", [
+            "items" => $questions,
+            "mytags" => $mytags
+        ]);
+
+        return $page->render([
+            "title" => "A collection of questions",
+        ]);
+    }
+
+    public function questToTag($questions) : array
+    {
         $qht = new QuestionHasTag();
         $qht->setDb($this->di->get("dbqb"));
-        $tag = new Tag();
-        $tag->setDb($this->di->get("dbqb"));
         $res = [];
         for ($i = 0; $i < count($questions); $i++) {
             $myvar = $qht->findAllWhere("questionid = ?", $questions[$i]->id);
             array_push($res, $myvar);
         }
+        return $res;
+    }
+
+    public function getTags($res) : array
+    {
+        $tag = new Tag();
+        $tag->setDb($this->di->get("dbqb"));
         $mytags = [];
         for ($i = 0; $i < count($res); $i++) {
             $myarray = [];
@@ -50,18 +72,8 @@ class QuestionController implements ContainerInjectableInterface
             }
             array_push($mytags, implode(", ", $myarray));
         }
-
-        $page->add("question/overview", [
-            "items" => $questions,
-            // "res" => $res,
-            "mytags" => $mytags
-        ]);
-
-        return $page->render([
-            "title" => "A collection of questions",
-        ]);
+        return $mytags;
     }
-
 
     /**
      * This is the index method action, it handles:
@@ -74,17 +86,63 @@ class QuestionController implements ContainerInjectableInterface
     public function questionActionGet($nr) : object
     {
         $page = $this->di->get("page");
-        $question = new Question();
-        $tag = new Tag();
-        $question->setDb($this->di->get("dbqb"));
-
+        $item = $this->getQuestion($nr);
+        $answers = $this->getAnswers($item);
+        $res = $this->questToTag([$item]);
+        $mytags = $this->getTags($res);
+        $user = $this->getUser($nr);
+        $comments = $this->getQComment($nr);
         $page->add("question/question", [
-            "item" => $question->find("id", $nr),
-            // "tags" = > $tag->findAll();
+            "item" => $item,
+            "mytags" => $mytags,
+            "answers" => $answers,
+            "user" => $user,
+            "comments" => $comments
         ]);
 
         return $page->render([
             "title" => "A question",
         ]);
+    }
+
+    public function getAnswers($item) : array
+    {
+        $answer = new Answer();
+        $answer->setDb($this->di->get("dbqb"));
+        $answers = $answer->findAllWhere("questionid = ?", $item->id);
+        for ($i = 0; $i < count($answers); $i++) {
+            $userid = $answers[$i]->userid;
+            $answers[$i]->username = $this->getUser($userid)->name;
+        }
+
+        return $answers;
+    }
+
+    public function getQuestion($nr) : object
+    {
+        $question = new Question();
+        $question->setDb($this->di->get("dbqb"));
+        $item = $question->find("id", $nr);
+        return $item;
+    }
+
+    public function getUser($nr) : object
+    {
+        $user = new User();
+        $user->setDb($this->di->get("dbqb"));
+        $item = $user->find("id", $nr);
+        return $item;
+    }
+
+    public function getQComment($nr) : array
+    {
+        $qcomment = new QComment();
+        $qcomment->setDb($this->di->get("dbqb"));
+        $items = $qcomment->findAllWhere("questionid = ?", $nr);
+        for ($i = 0; $i < count($items); $i++) {
+            $userid = $items[$i]->userid;
+            $items[$i]->username = $this->getUser($userid)->name;
+        }
+        return $items;
     }
 }
