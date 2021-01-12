@@ -51,13 +51,15 @@ class UserController implements ContainerInjectableInterface
     public function indexActionGet() : object
     {
         $page = $this->di->get("page");
-        // $book = new Book();
-        // $book->setDb($this->di->get("dbqb"));
+        $user = new User();
+        $user->setDb($this->di->get("dbqb"));
 
-        $page->add("user/overview");
+        $page->add("user/overview", [
+            "items" => $user->findAll(),
+        ]);
 
         return $page->render([
-            "title" => "A collection of items",
+            "title" => "A collection of users",
         ]);
     }
 

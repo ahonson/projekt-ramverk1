@@ -6957,3 +6957,68 @@ a.rm-button.rm-clicked .rm-button-face-2 {
     height: 100px;
     width: 100px;
 }
+
+table tr,
+table td {
+    border: 1px solid white;
+}
+
+tr th {
+    text-align: center !important;
+    font-weight: bold;
+    background-color: #000;
+    color: #ccc;
+}
+
+tr {
+    background-color: #453;
+}
+
+td {
+    text-align: center !important;
+    color: #eee;
+    padding: 5px;
+}
+
+tr:nth-child(even) {
+    background: #231;
+}
+
+.inlineimg {
+    max-height: 20px;
+}
+
+.warning {
+    background-color: #f1d1d4;
+    border-radius: 5px;
+    border: 2px #f00 solid;
+    color: #8b0000;
+    max-width: 440px;
+    margin: auto;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: larger;
+    text-align: center;
+}
+
+.weathertable td {
+    min-width: 125px;
+    text-align: center;
+    padding: 5px;
+}
+
+.booktable td.bookid {
+    text-align: center;
+    min-width: 50px;
+}
+
+.booktable td.bookdata {
+    text-align: center;
+    min-width: 150px;
+}
+
+.bookimage {
+    width: 200px;
+    max-height: 100px;
+    text-align: center;
+}
