@@ -147,6 +147,14 @@ class Getstuff
         return $item;
     }
 
+    public function getTag($nr) : object
+    {
+        $tag = new Tag();
+        $tag->setDb($this->di->get("dbqb"));
+        $item = $tag->find("id", $nr);
+        return $item;
+    }
+
     public function getTags($res) : array
     {
         $tag = new Tag();
@@ -179,13 +187,26 @@ class Getstuff
         return $item;
     }
 
-    public function questToTag($questions) : array
+    public function questToTag($questions, $search="questionid = ?") : array
     {
         $qht = new QuestionHasTag();
         $qht->setDb($this->di->get("dbqb"));
         $res = [];
         for ($i = 0; $i < count($questions); $i++) {
-            $myvar = $qht->findAllWhere("questionid = ?", $questions[$i]->id);
+            $myvar = $qht->findAllWhere($search, $questions[$i]->id);
+            array_push($res, $myvar);
+        }
+        return $res;
+    }
+
+    public function tagToQuest($nr) : array
+    {
+        $qht = new QuestionHasTag();
+        $qht->setDb($this->di->get("dbqb"));
+        $matches = $qht->findAllWhere("tagid = ?", $nr);
+        $res = [];
+        for ($i = 0; $i < count($matches); $i++) {
+            $myvar = $this->getQuestion($matches[$i]->questionid);
             array_push($res, $myvar);
         }
         return $res;

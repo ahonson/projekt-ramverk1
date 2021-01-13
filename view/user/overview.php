@@ -27,7 +27,6 @@ endif;
     <?php foreach ($items as $item) : ?>
     <tr>
         <td class="bookid">
-            <!-- <a href="<?= url("book/update/{$item->id}"); ?>"><?= $item->id ?></a> -->
             <?= $item->id ?>
         </td>
         <td class=""><a href="<?= url("user/user/{$item->id}"); ?>"><?= $item->name ?></a></td>

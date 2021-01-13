@@ -22,11 +22,10 @@ endif;
     </tr>
     <?php foreach ($items as $item) : ?>
     <tr>
-        <td class="bookid">
-            <!-- <a href="<?= url("book/update/{$item->id}"); ?>"><?= $item->id ?></a> -->
+        <td class="">
             <?= $item->id ?>
         </td>
-        <td class=""><?= $item->name ?></td>
+        <td class=""><a href="<?= url("tag/tag/{$item->id}"); ?>"><?= $item->name ?></a></td>
     </tr>
     <?php endforeach; ?>
 </table>
