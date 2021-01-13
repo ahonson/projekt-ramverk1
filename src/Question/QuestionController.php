@@ -50,7 +50,7 @@ class QuestionController implements ContainerInjectableInterface
         $page = $this->di->get("page");
         $getstuff = new Getstuff($this->di);
         $item = $getstuff->getQuestion($nr);
-        $answers = $getstuff->getAnswers($item);
+        $answers = $getstuff->getAnswers($item->id);
         $res = $getstuff->questToTag([$item]);
         $mytags = $getstuff->getTags($res);
         $user = $getstuff->getUser($nr);

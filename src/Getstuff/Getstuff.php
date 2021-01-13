@@ -26,12 +26,15 @@ class Getstuff
         $this->di = $di;
     }
 
-    public function getAnswer($nr) : object
+    private function addInfo($object) : object
     {
-        $ans = new Answer();
-        $ans->setDb($this->di->get("dbqb"));
-        $answer = $ans->find("id", $nr);
-        return $answer;
+        $textbody = $object->textbody;
+        $object->info = $textbody;
+        if (count(explode(" ", $textbody)) > 5) {
+            $info = array_slice(explode(" ", $textbody), 0, 5);
+            $object->info = implode(" ", $info) . "...";
+        }
+        return $object;
     }
 
     public function getAllAnswersWhere($nr) : array
@@ -40,22 +43,24 @@ class Getstuff
         $answer->setDb($this->di->get("dbqb"));
         $answers = $answer->findAllWhere("userid = ?", $nr);
         for ($i = 0; $i < count($answers); $i++) {
-            $textbody = $answers[$i]->textbody;
-            if (count(explode(" ", $textbody)) < 6) {
-                $answers[$i]->info = $textbody;
-            } else {
-                $info = array_slice(explode(" ", $textbody), 0, 5);
-                $answers[$i]->info = implode(" ", $info) . "...";
-            }
+            $answers[$i] = $this->addInfo($answers[$i]);
         }
         return $answers;
     }
 
-    public function getAnswers($item) : array
+    public function getAnswer($nr) : object
+    {
+        $ans = new Answer();
+        $ans->setDb($this->di->get("dbqb"));
+        $answer = $ans->find("id", $nr);
+        return $answer;
+    }
+
+    public function getAnswers($id) : array
     {
         $answer = new Answer();
         $answer->setDb($this->di->get("dbqb"));
-        $answers = $answer->findAllWhere("questionid = ?", $item->id);
+        $answers = $answer->findAllWhere("questionid = ?", $id);
         for ($i = 0; $i < count($answers); $i++) {
             $userid = $answers[$i]->userid;
             $answers[$i]->username = $this->getUser($userid)->name;
@@ -96,13 +101,7 @@ class Getstuff
         for ($i = 0; $i < count($qitems); $i++) {
             $userid = $qitems[$i]->userid;
             $qitems[$i]->username = $this->getUser($userid)->name;
-            $textbody = $qitems[$i]->textbody;
-            if (count(explode(" ", $textbody)) < 6) {
-                $qitems[$i]->info = $textbody;
-            } else {
-                $info = array_slice(explode(" ", $textbody), 0, 5);
-                $qitems[$i]->info = implode(" ", $info) . "...";
-            }
+            $qitems[$i] = $this->addInfo($qitems[$i]);
         }
 
         $acomment->setDb($this->di->get("dbqb"));
@@ -112,13 +111,7 @@ class Getstuff
             $aitems[$i]->username = $this->getUser($userid)->name;
             $ans = $this->getAnswer($aitems[$i]->answerid);
             $aitems[$i]->questionid = $ans->id;
-            $textbody = $aitems[$i]->textbody;
-            if (count(explode(" ", $textbody)) < 6) {
-                $aitems[$i]->info = $textbody;
-            } else {
-                $info = array_slice(explode(" ", $textbody), 0, 5);
-                $aitems[$i]->info = implode(" ", $info) . "...";
-            }
+            $aitems[$i] = $this->addInfo($aitems[$i]);
         }
         return array_merge($aitems, $qitems);
     }
