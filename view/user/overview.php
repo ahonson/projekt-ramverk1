@@ -30,7 +30,7 @@ endif;
             <!-- <a href="<?= url("book/update/{$item->id}"); ?>"><?= $item->id ?></a> -->
             <?= $item->id ?>
         </td>
-        <td class=""><?= $item->name ?></td>
+        <td class=""><a href="<?= url("user/user/{$item->id}"); ?>"><?= $item->name ?></a></td>
         <td class=""><?= $item->email ?></td>
         <td class=""><img src="<?= $item->gravatar ?>" alt="Gravatar for <?= $item->name ?>"></td>
         <td><?= $item->created ?></td>

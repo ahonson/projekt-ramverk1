@@ -166,13 +166,18 @@ INSERT INTO User (email, password, name, gravatar) VALUES ("hate@hate.hate", "ha
 INSERT INTO Question (userid, title, textbody) VALUES (1, "Hur blir jag bäst i världen?", "Jag har stora ambitioner men vet inte hur jag ska komma igång. Hjälp mig!");
 INSERT INTO Question (userid, title, textbody) VALUES (2, "Damgambit", "Som svart har jag länge valt att avböja boendeoffret, men på sistone har jag börjat experimentera med antagen damgambit. Det verkar funka bra, men främst mot svaga spelare. Vad tycker ni?");
 INSERT INTO Answer (userid, questionid, textbody) VALUES (2, 1, "Man ska träna slutspel och plugga öppningar.");
+INSERT INTO Answer (userid, questionid, textbody) VALUES (3, 1, "Ett annat bra sätt är att spela igenom klassiska partier och analysera dragen med hjälp av en dator.");
 INSERT INTO Tag (name) VALUES ("slutspel");
 INSERT INTO Tag (name) VALUES ("öppning");
 INSERT INTO Tag (name) VALUES ("spelstyrka");
 INSERT INTO Tag (name) VALUES ("världsmästare");
 INSERT INTO Tag (name) VALUES ("spelregler");
 INSERT INTO QComment (userid, questionid, textbody) VALUES (3, 1, "Intressant fråga!");
+INSERT INTO QComment (userid, questionid, textbody) VALUES (3, 2, "Bra fråga!");
+INSERT INTO QComment (userid, questionid, textbody) VALUES (4, 1, "Glöm det, du kommer aldrig att bli nåt!");
 INSERT INTO AComment (userid, answerid, textbody) VALUES (3, 1, "Mycket bra svar!");
+INSERT INTO AComment (userid, answerid, textbody) VALUES (1, 1, "Tack för tipset!");
+INSERT INTO AComment (userid, answerid, textbody) VALUES (4, 1, "Dumheter!");
 INSERT INTO QuestionHasTag (tagid, questionid) VALUES (3, 1);
 INSERT INTO QuestionHasTag (tagid, questionid) VALUES (4, 1);
 INSERT INTO QuestionHasTag (tagid, questionid) VALUES (2, 2);

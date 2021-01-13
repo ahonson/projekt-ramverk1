@@ -20,4 +20,9 @@ namespace Anax\View;
 <p><em>Skrivet av <?= $answer->username ?> (<?= $answer->created ?>)</em></p>
 <p><?= $answer->textbody ?></p>
 <p>Poäng: <?= $answer->rating ?></p>
+    <?php if ($answer->comments) { foreach ($answer->comments as $index => $comment) : ?>
+        <h6>Kommentar av <?= $comment->username ?> (<?= $comment->created ?>)</h6>
+        <p><?= $comment->textbody ?></p>
+        <p>Poäng: <?= $comment->rating ?></p>
+    <?php endforeach;} ?>
 <?php endforeach; ?>
