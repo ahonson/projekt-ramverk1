@@ -1,7 +1,9 @@
 <?php
 
+namespace Anax\Controller;
 namespace artes\Question;
 
+use Anax\Route\Exception\NotFoundException;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
 use artes\Getstuff\Getstuff;
@@ -18,8 +20,11 @@ class QuestionController implements ContainerInjectableInterface
      *
      * @return object as a response object
      */
-    public function indexActionGet() : object
+    public function indexActionGet($mydi=null) : object
     {
+        if ($mydi) {
+            $this->di = $mydi;
+        }
         $page = $this->di->get("page");
         $getstuff = new Getstuff($this->di);
         $question = new Question();
@@ -45,8 +50,11 @@ class QuestionController implements ContainerInjectableInterface
      *
      * @return object
      */
-    public function questionActionGet($nr) : object
+    public function questionActionGet($nr, $mydi=null) : object
     {
+        if ($mydi) {
+            $this->di = $mydi;
+        }
         $page = $this->di->get("page");
         $getstuff = new Getstuff($this->di);
         $item = $getstuff->getQuestion($nr);

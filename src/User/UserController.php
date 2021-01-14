@@ -49,8 +49,11 @@ class UserController implements ContainerInjectableInterface
      *
      * @return object as a response object
      */
-    public function indexActionGet() : object
+    public function indexActionGet($mydi=null) : object
     {
+        if ($mydi) {
+            $this->di = $mydi;
+        }
         $page = $this->di->get("page");
         $getstuff = new Getstuff($this->di);
         $users = $getstuff->getUsers();
@@ -72,8 +75,11 @@ class UserController implements ContainerInjectableInterface
      *
      * @return object
      */
-    public function userActionGet($nr) : object
+    public function userActionGet($nr, $mydi=null) : object
     {
+        if ($mydi) {
+            $this->di = $mydi;
+        }
         $page = $this->di->get("page");
         $getstuff = new Getstuff($this->di);
         // $item = $this->getQuestion($nr);
