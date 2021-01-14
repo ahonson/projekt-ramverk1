@@ -65,13 +65,28 @@ class Getstuff
             $userid = $answers[$i]->userid;
             $answers[$i]->username = $this->getUser($userid)->name;
             $answers[$i]->userid = $this->getUser($userid)->id;
-            $answers[$i]->comments = $this->getComment($answers[$i]->id, "a");
+            $answers[$i]->comments = $this->getComments($answers[$i]->id, "a");
         }
 
         return $answers;
     }
 
-    public function getComment($nr, $type="q") : array
+    public function getComment($nr, $type="q") : object
+    {
+        if ($type === "a") {
+            $comment = new AComment();
+        } else {
+            $comment = new QComment();
+        }
+        // var_dump($type);
+        // var_dump($comment);
+        // die();
+        $comment->setDb($this->di->get("dbqb"));
+        $item = $comment->find("id", $nr);
+        return $item;
+    }
+
+    public function getComments($nr, $type="q") : array
     {
         if ($type === "q") {
             $comment = new QComment();

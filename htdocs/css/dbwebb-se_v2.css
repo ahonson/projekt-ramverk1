@@ -7049,18 +7049,18 @@ tr:nth-child(even) {
     color: #b67700;
 }
 
-.upvote input[type="submit"] {
+.upvote input[type="submit"],
+.downvote input[type="submit"] {
     background-image: url("../img/theme/arrow_up.png");
     background-color: #491;
     width: 40px;
     height: 40px;
+    cursor: pointer;
 }
 
 .downvote input[type="submit"] {
     background-image: url("../img/theme/arrow_down.png");
     background-color: #914;
-    width: 40px;
-    height: 40px;
 }
 
 .vote {

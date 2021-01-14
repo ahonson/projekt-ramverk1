@@ -1,18 +1,18 @@
 <?php
 
-namespace artes\AComment;
+namespace artes\User;
 
 use Anax\DatabaseActiveRecord\ActiveRecordModel;
 
 /**
  * A database driven model using the Active Record design pattern.
  */
-class AComment extends ActiveRecordModel
+class UserRatesAComment extends ActiveRecordModel
 {
     /**
      * @var string $tableName name of the database table.
      */
-    protected $tableName = "AComment";
+    protected $tableName = "UserRatesAComment";
 
 
 
@@ -23,10 +23,7 @@ class AComment extends ActiveRecordModel
      */
     public $id;
     public $userid;
-    public $answerid;
-    public $textbody;
-    public $rating;
+    public $commentid;
     public $created;
-    public $updated;
-    public $deleted;
+    public $up;
 }

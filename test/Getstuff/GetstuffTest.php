@@ -75,11 +75,11 @@ class GetstuffTest extends TestCase
     /**
      * Getstuff
      */
-    public function testGetComment()
+    public function testGetComments()
     {
         $getstuff = new Getstuff($this->di);
-        $res = $getstuff->getComment(1);
-        $res1 = $getstuff->getComment(1, "bla");
+        $res = $getstuff->getComments(1);
+        $res1 = $getstuff->getComments(1, "bla");
         $this->assertIsArray($res);
         $this->assertNotEmpty($res);
         $this->assertEmpty($res1);

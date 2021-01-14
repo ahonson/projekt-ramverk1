@@ -112,7 +112,7 @@ CREATE TABLE UserRatesQuestion (
     "userid" INTEGER NOT NULL,
     "questionid" INTEGER NOT NULL,
     "created" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    "up" BOOLEAN DEFAULT true,
+    "up" INTEGER DEFAULT 1,
     FOREIGN KEY(userid) REFERENCES User(id),
     FOREIGN KEY(questionid) REFERENCES Question(id)
 );
@@ -126,7 +126,7 @@ CREATE TABLE UserRatesAnswer (
     "userid" INTEGER NOT NULL,
     "answerid" INTEGER NOT NULL,
     "created" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    "up" BOOLEAN DEFAULT true,
+    "up" INTEGER DEFAULT 1,
     FOREIGN KEY(answerid) REFERENCES Answer(id),
     FOREIGN KEY(userid) REFERENCES User(id)
 );
@@ -140,7 +140,7 @@ CREATE TABLE UserRatesAComment (
     "userid" INTEGER NOT NULL,
     "commentid" INTEGER NOT NULL,
     "created" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    "up" BOOLEAN DEFAULT true,
+    "up" INTEGER DEFAULT 1,
     FOREIGN KEY(commentid) REFERENCES AComment(id),
     FOREIGN KEY(userid) REFERENCES User(id)
 );
@@ -154,7 +154,7 @@ CREATE TABLE UserRatesQComment (
     "userid" INTEGER NOT NULL,
     "commentid" INTEGER NOT NULL,
     "created" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    "up" BOOLEAN DEFAULT true,
+    "up" INTEGER DEFAULT 1,
     FOREIGN KEY(commentid) REFERENCES QComment(id),
     FOREIGN KEY(userid) REFERENCES User(id)
 );
@@ -163,9 +163,9 @@ INSERT INTO User (email, password, name, gravatar) VALUES ("joe@joe.joe", "joe12
 INSERT INTO User (email, password, name, gravatar) VALUES ("jane@jane.jane", "jane123", "Jane Doe", "https://www.gravatar.com/avatar/42cde8637248112a6e210f053603b600?s=32&d=identicon&r=PG");
 INSERT INTO User (email, password, name, gravatar) VALUES ("jack@jack.jack", "jack123", "Jack Doe", "https://www.gravatar.com/avatar/322e96010531f4692922fc2b22482ed1?s=32&d=identicon&r=PG");
 INSERT INTO User (email, password, name, gravatar) VALUES ("hate@hate.hate", "hate123", "Hate Doe", "https://www.gravatar.com/avatar/bf3ad5e9ebf719bda30b3d500dde1ea7?s=32&d=identicon&r=PG");
-INSERT INTO Question (userid, title, textbody) VALUES (1, "Hur blir jag bäst i världen?", "Jag har stora ambitioner men vet inte hur jag ska komma igång. Hjälp mig!");
+INSERT INTO Question (userid, title, textbody) VALUES (1, "Hur blir jag stormästare?", "Jag vill bli stormästare, kanske världsmästare inom 10-15 år. Jag har alltså väldigt stora ambitioner men vet inte hur jag ska komma igång. Jag har memorerat en massa öppningar, men till ingen nytta. Kan ni tipsa mig med något? Hjälp mig!");
 INSERT INTO Question (userid, title, textbody) VALUES (2, "Damgambit", "Som svart har jag länge valt att avböja boendeoffret, men på sistone har jag börjat experimentera med antagen damgambit. Det verkar funka bra, men främst mot svaga spelare. Vad tycker ni?");
-INSERT INTO Answer (userid, questionid, textbody) VALUES (2, 1, "Man ska träna slutspel och plugga öppningar.");
+INSERT INTO Answer (userid, questionid, textbody) VALUES (2, 1, "Man ska träna slutspel och analysera positionella partier. Att bara plugga öppningar leder ingenstans.");
 INSERT INTO Answer (userid, questionid, textbody) VALUES (3, 1, "Ett annat bra sätt är att spela igenom klassiska partier och analysera dragen med hjälp av en dator.");
 INSERT INTO Tag (name) VALUES ("slutspel");
 INSERT INTO Tag (name) VALUES ("öppning");
@@ -185,7 +185,7 @@ INSERT INTO UserRatesAnswer (userid, answerid) VALUES (3, 1);
 INSERT INTO UserRatesQuestion (userid, questionid) VALUES (3, 1);
 INSERT INTO UserRatesAComment (userid, commentid) VALUES (2, 1);
 INSERT INTO UserRatesQComment (userid, commentid) VALUES (1, 1);
-INSERT INTO UserRatesAnswer (userid, answerid, up) VALUES (4, 1, false);
-INSERT INTO UserRatesQuestion (userid, questionid, up) VALUES (4, 1, false);
-INSERT INTO UserRatesAComment (userid, commentid, up) VALUES (4, 1, false);
-INSERT INTO UserRatesQComment (userid, commentid, up) VALUES (4, 1, false);
+INSERT INTO UserRatesAnswer (userid, answerid, up) VALUES (4, 1, -1);
+INSERT INTO UserRatesQuestion (userid, questionid, up) VALUES (4, 1, -1);
+INSERT INTO UserRatesAComment (userid, commentid, up) VALUES (4, 1, -1);
+INSERT INTO UserRatesQComment (userid, commentid, up) VALUES (4, 1, -1);
