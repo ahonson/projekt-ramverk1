@@ -7030,3 +7030,54 @@ tr:nth-child(even) {
     max-height: 100px;
     text-align: center;
 }
+
+.commentdiv {
+    margin-left: 15%;
+    padding-left: 2%;
+    border-radius: 15px;
+    /* border-left: #fdc252 solid 4px; */
+    border-left: #b67700 solid 4px;
+    clear: both;
+    min-height: 130px;
+}
+
+.commenttext {
+
+}
+
+.rm-navbar a:hover {
+    color: #b67700;
+}
+
+.upvote input[type="submit"] {
+    background-image: url("../img/theme/arrow_up.png");
+    background-color: #491;
+    width: 40px;
+    height: 40px;
+}
+
+.downvote input[type="submit"] {
+    background-image: url("../img/theme/arrow_down.png");
+    background-color: #914;
+    width: 40px;
+    height: 40px;
+}
+
+.vote {
+    float: left;
+    padding-right: 40px;
+}
+
+.commentvote {
+    float: right;
+}
+
+.questionanswer {
+    margin-bottom: 50px;
+}
+
+.ratingscore {
+    font-size: 25px;
+    margin: 0;
+    padding-left: 10px;
+}

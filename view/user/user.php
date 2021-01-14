@@ -17,7 +17,7 @@ if (count($allcomments) === 1) {
 }
 ?>
 
-<h1><?= $user->name?> har skrivit</h1>
+<h1><img src="<?= $user->gravatar?>" alt="gravatar"> <?= $user->name?> har skrivit</h1>
 
 <h5><?= count($items) . " " . $qu ?></h5>
 <?php if ($items) : ?>

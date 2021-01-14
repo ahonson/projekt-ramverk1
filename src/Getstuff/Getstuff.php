@@ -64,6 +64,7 @@ class Getstuff
         for ($i = 0; $i < count($answers); $i++) {
             $userid = $answers[$i]->userid;
             $answers[$i]->username = $this->getUser($userid)->name;
+            $answers[$i]->userid = $this->getUser($userid)->id;
             $answers[$i]->comments = $this->getComment($answers[$i]->id, "a");
         }
 
@@ -86,6 +87,7 @@ class Getstuff
         for ($i = 0; $i < count($items); $i++) {
             $userid = $items[$i]->userid;
             $items[$i]->username = $this->getUser($userid)->name;
+            $items[$i]->userid = $userid;
         }
         return $items;
     }
