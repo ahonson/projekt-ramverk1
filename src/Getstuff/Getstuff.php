@@ -135,6 +135,8 @@ class Getstuff
         $question = new Question();
         $question->setDb($this->di->get("dbqb"));
         $item = $question->find("id", $nr);
+        $res = $this->questToTag([$item]);
+        $item->tags = $this->getTags($res, false)[0];
         return $item;
     }
 
@@ -162,7 +164,7 @@ class Getstuff
         return $item;
     }
 
-    public function getTags($res) : array
+    public function getTags($res, $str=true) : array
     {
         $tag = new Tag();
         $tag->setDb($this->di->get("dbqb"));
@@ -171,9 +173,13 @@ class Getstuff
             $myarray = [];
             for ($j = 0; $j < count($res[$i]); $j++) {
                 $myvar = $tag->find("id", $res[$i][$j]->tagid);
-                array_push($myarray, $myvar->name);
+                $myarray[$res[$i][$j]->tagid] = $myvar->name;
             }
-            array_push($mytags, implode(", ", $myarray));
+            if ($str) {
+                array_push($mytags, implode(", ", $myarray));
+            } else {
+                array_push($mytags, $myarray);
+            }
         }
         return $mytags;
     }

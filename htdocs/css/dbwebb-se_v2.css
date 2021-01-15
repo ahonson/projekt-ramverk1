@@ -7081,3 +7081,20 @@ tr:nth-child(even) {
     margin: 0;
     padding-left: 10px;
 }
+
+.questiontag {
+    padding: 10px;
+    background-color: #b67700;
+    color: #111;
+    text-decoration: none;
+}
+
+.questiontag:visited,
+.questiontag:link {
+    color: #fff;
+}
+
+.questiontag:hover {
+    background-color: #a56600;
+    color: #eee;
+}

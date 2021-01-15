@@ -19,6 +19,11 @@ namespace Anax\View;
 <div class="questionanswer">
     <p><em>Publicerad av <a href="<?= url("user/user/{$user->id}"); ?>"><?= $user->name ?></a> (<?= $item->created ?>)</em></p>
     <p><?= $item->textbody ?></p>
+    <p><strong>Taggar</strong>:
+    <?php foreach ($item->tags as $key => $tag): ?>
+        <a class="questiontag" href="../../tag/tag/<?= $key ?>"><?= $tag ?></a>
+    <?php endforeach; ?>
+    </p>
 </div>
 
 
