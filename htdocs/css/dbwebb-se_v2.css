@@ -7041,6 +7041,23 @@ tr:nth-child(even) {
     min-height: 130px;
 }
 
+.qcommentdiv {
+    margin-left: 15%;
+    margin-top: 25px;
+    padding-left: 2%;
+}
+
+.qcommentdiv textarea {
+    height: 6em;
+    width: 90%;
+}
+
+.qcommentdiv label,
+.answerdiv label {
+    font-size: 20px;
+    font-weight: 550;
+}
+
 .commenttext {
 
 }

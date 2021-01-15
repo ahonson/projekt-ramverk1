@@ -127,7 +127,6 @@ class QuestionController implements ContainerInjectableInterface
             $createstuff->saveQuestionRating($list[0], $list[1], $list[2]);
             $editstuff->editQuestion($list[0], $list[1]);
         }
-        // die("KKKKKKKKKKKKKKK");
         $rateqcomment = $request->getPost("rateqcomment", null);
         if ($rateqcomment === "") {
             $createstuff->saveQCommentRating($list[0], $list[1], $list[2]);
@@ -142,6 +141,24 @@ class QuestionController implements ContainerInjectableInterface
         if ($rateacomment === "") {
             $createstuff->saveACommentRating($list[0], $list[1], $list[2]);
             $editstuff->editAComment($list[0], $list[1]);
+        }
+
+        $sendanswer = $request->getPost("sendanswer", null);
+        if ($sendanswer) {
+            $textbody = $request->getPost("answertext");
+            $createstuff->saveAnswer($list[1], $list[2], $textbody);
+        }
+
+        $sendacomment = $request->getPost("sendacomment", null);
+        if ($sendacomment) {
+            $textbody = $request->getPost("acommenttext");
+            $createstuff->saveAComment($list[1], $list[2], $textbody);
+        }
+
+        $sendqcomment = $request->getPost("sendqcomment", null);
+        if ($sendqcomment) {
+            $textbody = $request->getPost("qcommenttext");
+            $createstuff->saveQComment($list[1], $list[2], $textbody);
         }
 
         $response = $this->di->response;

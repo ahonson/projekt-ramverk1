@@ -9,6 +9,9 @@ use artes\User\UserRatesQComment;
 use artes\Question\Question;
 use artes\Question\QuestionHasTag;
 use artes\Getstuff\Getstuff;
+use artes\Answer\Answer;
+use artes\AComment\AComment;
+use artes\QComment\QComment;
 
 /**
   * A class for adding stuff to the db.
@@ -77,20 +80,48 @@ class Createstuff
         return $dt->format('Y-m-d H:i:s');
     }
 
-    // public function saveAnswer()
-    // {
-    //
-    // }
-    //
-    // public function saveAComment()
-    // {
-    //
-    // }
-    //
-    // public function saveQComment()
-    // {
-    //
-    // }
+    public function saveAnswer($questionid, $userid, $textbody)
+    {
+        $answer = new Answer();
+        $answer->setDb($this->di->get("dbqb"));
+        $answer->userid = $userid;
+        $answer->questionid = $questionid;
+        $answer->textbody = $textbody;
+        $answer->rating = 0;
+        $answer->accepted = 0;
+        $answer->created = $this->centralEuropeanTime();
+        $answer->updated = null;
+        $answer->deleted = null;
+        $answer->save();
+    }
+
+    public function saveAComment($answerid, $userid, $textbody)
+    {
+        $acomment = new AComment();
+        $acomment->setDb($this->di->get("dbqb"));
+        $acomment->userid = $userid;
+        $acomment->answerid = $answerid;
+        $acomment->textbody = $textbody;
+        $acomment->rating = 0;
+        $acomment->created = $this->centralEuropeanTime();
+        $acomment->updated = null;
+        $acomment->deleted = null;
+        $acomment->save();
+    }
+
+    public function saveQComment($questionid, $userid, $textbody)
+    {
+        $qcomment = new QComment();
+        $qcomment->setDb($this->di->get("dbqb"));
+        $qcomment->userid = $userid;
+        $qcomment->questionid = $questionid;
+        $qcomment->textbody = $textbody;
+        $qcomment->rating = 0;
+        $qcomment->created = $this->centralEuropeanTime();
+        $qcomment->updated = null;
+        $qcomment->deleted = null;
+        $qcomment->save();
+    }
 
     public function saveQuestion($title, $textbody, $userid, $tags)
     {
