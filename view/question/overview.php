@@ -7,6 +7,7 @@ $items = isset($items) ? $items : null;
 ?>
 
 <h1>All questions</h1>
+<p><a class="questiontag" href="question/newquestion">Ask new question</a></p>
 
 <?php if (!$items) : ?>
     <p>Det finns inga frågor att visa.</p>

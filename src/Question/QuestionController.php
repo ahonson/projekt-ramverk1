@@ -79,6 +79,33 @@ class QuestionController implements ContainerInjectableInterface
         ]);
     }
 
+    /**
+     * This is the index method action, it handles:
+     * ANY METHOD mountpoint
+     * ANY METHOD mountpoint/
+     * ANY METHOD mountpoint/index
+     *
+     * @return object
+     */
+    public function newquestionActionGet($mydi=null) : object
+    {
+        if ($mydi) {
+            $this->di = $mydi;
+        }
+        $page = $this->di->get("page");
+        $getstuff = new Getstuff($this->di);
+        $tags = $getstuff->getAllTags();
+        $page->add("question/newquestion", [
+            "title" => "",
+            "textbody" => "",
+            "tags" => $tags,
+        ]);
+
+        return $page->render([
+            "title" => "A new question",
+        ]);
+    }
+
 
     /**
      * This is the index method action, it handles:
@@ -100,6 +127,7 @@ class QuestionController implements ContainerInjectableInterface
             $createstuff->saveQuestionRating($list[0], $list[1], $list[2]);
             $editstuff->editQuestion($list[0], $list[1]);
         }
+        // die("KKKKKKKKKKKKKKK");
         $rateqcomment = $request->getPost("rateqcomment", null);
         if ($rateqcomment === "") {
             $createstuff->saveQCommentRating($list[0], $list[1], $list[2]);
@@ -118,5 +146,37 @@ class QuestionController implements ContainerInjectableInterface
 
         $response = $this->di->response;
         return $response->redirect("question/question/" . $nr . "#" . $list[3]);
+    }
+
+
+    /**
+     * This is the index method action, it handles:
+     * ANY METHOD mountpoint
+     * ANY METHOD mountpoint/
+     * ANY METHOD mountpoint/index
+     *
+     * @return object
+     */
+    public function newquestionActionPost() : object
+    {
+        $request = $this->di->request;
+        $response = $this->di->response;
+
+        $createstuff = new Createstuff($this->di);
+        $title = $request->getPost("title");
+        $textbody = $request->getPost("textbody");
+        $userid = 3;
+        $tags = [];
+        if(!empty($request->getPost("tagname"))) {
+            foreach($request->getPost("tagname") as $tagname) {
+                array_push($tags, $tagname);
+            }
+        }
+        if (!$title || !$textbody || !$tags) {
+            return $response->redirect("question/newquestion");
+        } else {
+            $createstuff->saveQuestion($title, $textbody, $userid, $tags);
+            return $response->redirect("question/");
+        }
     }
 }

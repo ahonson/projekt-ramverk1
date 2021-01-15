@@ -47,6 +47,7 @@ class Updatestuff
     {
         $getstuff = new Getstuff($this->di);
         $question = $getstuff->getQuestion($id);
+        unset($question->tags);
         $question->setDb($this->di->get("dbqb"));
         $question->rating += $value;
         $question->save();

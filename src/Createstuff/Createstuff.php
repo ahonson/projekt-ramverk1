@@ -6,6 +6,9 @@ use artes\User\UserRatesAnswer;
 use artes\User\UserRatesQuestion;
 use artes\User\UserRatesAComment;
 use artes\User\UserRatesQComment;
+use artes\Question\Question;
+use artes\Question\QuestionHasTag;
+use artes\Getstuff\Getstuff;
 
 /**
   * A class for adding stuff to the db.
@@ -74,16 +77,6 @@ class Createstuff
         return $dt->format('Y-m-d H:i:s');
     }
 
-    // public function saveUser()
-    // {
-    //
-    // }
-    //
-    // public function saveQuestion()
-    // {
-    //
-    // }
-    //
     // public function saveAnswer()
     // {
     //
@@ -95,6 +88,44 @@ class Createstuff
     // }
     //
     // public function saveQComment()
+    // {
+    //
+    // }
+
+    public function saveQuestion($title, $textbody, $userid, $tags)
+    {
+        $question = new Question();
+        $question->setDb($this->di->get("dbqb"));
+        $question->title = $title;
+        $question->textbody = $textbody;
+        $question->userid = $userid;
+        $question->rating = 0;
+        $question->created = $this->centralEuropeanTime();
+        $question->updated = null;
+        $question->deleted = null;
+        $question->save();
+        $this->saveQuest2Tag($tags, $textbody); // $tags is an array of tagids
+    }
+
+    public function saveQuest2Tag($tags, $textbody)
+    {
+        $getstuff = new Getstuff($this->di);
+        $questions = $getstuff->getQuestionsWhere("textbody = ?", $textbody);
+        $id = 1;
+        for ($i=0; $i < count($questions); $i++) {
+            $id = $questions[$i]->id;
+        }
+        for ($i=0; $i < count($tags); $i++) {
+            $q2t = new QuestionHasTag();
+            $q2t->setDb($this->di->get("dbqb"));
+            $q2t->questionid = $id;
+            $q2t->tagid = $tags[$i];
+            $q2t->save();
+            echo ";";
+        }
+    }
+
+    // public function saveUser()
     // {
     //
     // }

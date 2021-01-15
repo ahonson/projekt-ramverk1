@@ -156,6 +156,14 @@ class Getstuff
         return $item;
     }
 
+    public function getAllTags() : array
+    {
+        $tag = new Tag();
+        $tag->setDb($this->di->get("dbqb"));
+        $item = $tag->findAll();
+        return $item;
+    }
+
     public function getTag($nr) : object
     {
         $tag = new Tag();
