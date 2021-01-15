@@ -14,7 +14,6 @@ namespace Anax\View;
         <th>Title</th>
         <th>Created</th>
         <th>Score</th>
-        <!-- <th>Tags</th> -->
     </tr>
     <?php foreach ($questions as $index => $item) : ?>
     <tr>
@@ -24,7 +23,6 @@ namespace Anax\View;
         <td class=""><a href="<?= url("question/question/{$item->id}"); ?>"><?= $item->title ?></a></td>
         <td><?= $item->created ?></td>
         <td><?= $item->rating ?></td>
-        <!-- <td><?= $mytags[$index] ?></td> -->
     </tr>
     <?php endforeach; ?>
 </table>
