@@ -57,6 +57,15 @@ class QuestionControllerTest extends TestCase
         $this->assertInstanceOf(ResponseUtility::class, $res);
     }
 
+    /**
+     * Getstuff
+     */
+    public function testNewquestionActionGet()
+    {
+        $getstuff = new QuestionController();
+        $res = $getstuff->newquestionActionGet($this->di);
+        $this->assertInstanceOf(ResponseUtility::class, $res);
+    }
 
     /**
      * Getstuff
@@ -74,11 +83,28 @@ class QuestionControllerTest extends TestCase
                 "ratequestion" => null
             ],
         ]);
-
-        // var_dump($this->di);
-        // die();
         $res = $getstuff->questionActionPost(1, $this->di);
-        // $res = $getstuff->questionActionPost(1);
+        $this->assertInstanceOf(ResponseUtility::class, $res);
+    }
+
+    /**
+     * Getstuff
+     */
+    public function testNewquestionActionPost()
+    {
+        $getstuff = new QuestionController();
+        $getstuff->setDI($this->di);
+
+        $request = $this->di->get("request");
+        $response = $this->di->get("response");
+        $request->setGlobals([
+            "post" => [
+                "title" => "mytitle",
+                "textbody" => "",
+                "tagname" => [1, 3, 7]
+            ],
+        ]);
+        $res = $getstuff->newquestionActionPost();
         $this->assertInstanceOf(ResponseUtility::class, $res);
     }
 }
