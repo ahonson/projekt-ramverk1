@@ -18,30 +18,30 @@ class Updatestuff
         $this->di = $di;
     }
 
-    public function editAnswerRating()
-    {
-
-    }
-
-    public function editACommentRating()
-    {
-
-    }
-
-    public function editQCommentRating()
-    {
-
-    }
-
-    public function editQuestionRating()
-    {
-
-    }
-
-    public function editUser()
-    {
-
-    }
+    // public function editAnswerRating()
+    // {
+    //
+    // }
+    //
+    // public function editACommentRating()
+    // {
+    //
+    // }
+    //
+    // public function editQCommentRating()
+    // {
+    //
+    // }
+    //
+    // public function editQuestionRating()
+    // {
+    //
+    // }
+    //
+    // public function editUser()
+    // {
+    //
+    // }
 
     public function editQuestion($value, $id)
     {

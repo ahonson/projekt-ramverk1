@@ -75,6 +75,19 @@ class GetstuffTest extends TestCase
     /**
      * Getstuff
      */
+    public function testGetComment()
+    {
+        $getstuff = new Getstuff($this->di);
+        $res = $getstuff->getComment(1, "a");
+        $res1 = $getstuff->getComment(1, "bla");
+        $this->assertIsObject($res);
+        $this->assertObjectHasAttribute("answerid", $res);
+        $this->assertObjectHasAttribute("questionid", $res1);
+    }
+
+    /**
+     * Getstuff
+     */
     public function testGetComments()
     {
         $getstuff = new Getstuff($this->di);

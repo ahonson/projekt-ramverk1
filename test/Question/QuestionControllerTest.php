@@ -56,4 +56,28 @@ class QuestionControllerTest extends TestCase
         $res = $getstuff->questionActionGet(1, $this->di);
         $this->assertInstanceOf(ResponseUtility::class, $res);
     }
+
+
+    /**
+     * Getstuff
+     */
+    // public function testQuestionActionPost()
+    // {
+    //     $getstuff = new QuestionController();
+    //     $getstuff->setDI($this->di);
+    //
+    //     $request = $this->di->get("request");
+    //     $request->setGlobals([
+    //         "post" => [
+    //             "data" => "1;1;2;#questionid-1",
+    //             "ratequestion" => ""
+    //         ],
+    //     ]);
+    //
+    //     // var_dump($this->di);
+    //     // die();
+    //     $res = $getstuff->questionActionPost(1, $this->di);
+    //     // $res = $getstuff->questionActionPost(1);
+    //     $this->assertInstanceOf(ResponseUtility::class, $res);
+    // }
 }

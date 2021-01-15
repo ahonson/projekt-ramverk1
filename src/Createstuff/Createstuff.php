@@ -65,7 +65,7 @@ class Createstuff
         $urq->save();
     }
 
-    private function centralEuropeanTime()
+    public function centralEuropeanTime()
     {
         $tz = 'Europe/Berlin';
         $timestamp = time();
@@ -74,28 +74,28 @@ class Createstuff
         return $dt->format('Y-m-d H:i:s');
     }
 
-    public function saveUser()
-    {
-
-    }
-
-    public function saveQuestion()
-    {
-
-    }
-
-    public function saveAnswer()
-    {
-
-    }
-
-    public function saveAComment()
-    {
-
-    }
-
-    public function saveQComment()
-    {
-
-    }
+    // public function saveUser()
+    // {
+    //
+    // }
+    //
+    // public function saveQuestion()
+    // {
+    //
+    // }
+    //
+    // public function saveAnswer()
+    // {
+    //
+    // }
+    //
+    // public function saveAComment()
+    // {
+    //
+    // }
+    //
+    // public function saveQComment()
+    // {
+    //
+    // }
 }

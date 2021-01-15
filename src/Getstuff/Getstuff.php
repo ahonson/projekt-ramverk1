@@ -78,9 +78,6 @@ class Getstuff
         } else {
             $comment = new QComment();
         }
-        // var_dump($type);
-        // var_dump($comment);
-        // die();
         $comment->setDb($this->di->get("dbqb"));
         $item = $comment->find("id", $nr);
         return $item;
