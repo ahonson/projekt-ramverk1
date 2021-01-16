@@ -37,6 +37,14 @@ class Getstuff
         return $object;
     }
 
+    // public function trytags($nr) : array
+    // {
+    //     $tag = new Tag();
+    //     $tag->setDb($this->di->get("dbqb"));
+    //     $res = $tag->execute("SELECT * FROM Tag WHERE id = $nr");
+    //     return $res;
+    // }
+
     public function getAllAnswersWhere($nr) : array
     {
         $answer = new Answer();

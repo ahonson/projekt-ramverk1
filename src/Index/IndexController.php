@@ -30,11 +30,28 @@ class IndexController implements ContainerInjectableInterface
         $data = [
             "src" => "img/theme/chesspieces1.png?width=1100&height=150&crop-to-fit&area=0,0,30,0",
         ];
-        $getstuff = new Getstuff($this->di);
+        // $getstuff = new Getstuff($this->di);
+        // $mytag = $getstuff->trytags(4);
+
+        $this->di->get("dbqb")->connect();
+        $sql = "SELECT *, COUNT(name) AS ct FROM Tag AS t, QuestionHasTag AS qht WHERE t.id = qht.tagid GROUP BY name ORDER BY ct DESC LIMIT 3;";
+        $top3tags = $this->di->dbqb->executeFetchAll($sql);
+        // var_dump($top3tags);
+        // die(",,,,,,,,,,,,,,,,");
 
         $page = $this->di->get("page");
         $page->add("anax/v2/image/default", $data, "flash");
         $page->add("index/index", [
+            // "top3tags" => $top3tags
+        ]);
+        $page->add("index/topquestions", [
+            // "top3tags" => $top3tags
+        ]);
+        $page->add("index/toptags", [
+            "top3tags" => $top3tags
+        ], "sidebar-right");
+        $page->add("index/topusers", [
+            // "top3users" => $top3users
         ]);
 
         return $page->render([
