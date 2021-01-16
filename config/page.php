@@ -33,7 +33,7 @@ return [
             "region" => "header-col-1",
             "template" => "anax/v2/header/site_logo",
             "data" => [
-                "class" => "large",
+                // "class" => "large",
                 // "siteLogo"      => "image/theme/leaf_256x256.png",
                 "siteLogo"      => "img/theme/yin.webp",
                 "siteLogoAlt"   => "Schack",
@@ -44,10 +44,10 @@ return [
             "template" => "anax/v2/header/site_logo_text",
             "data" => [
                 "homeLink"      => "",
-                "siteLogoText"  => "Schackmatt",
+                "siteLogoText"  => "",
                 // "siteLogoTextIcon" => "image/theme/yin.webp",
                 // "siteLogoTextIcon" => "image/theme/chess.png",
-                "siteLogoTextIcon" => "img/theme/chess.png",
+                "siteLogoTextIcon" => "img/theme/yin.webp",
                 "siteLogoTextIconAlt" => "Chess",
             ],
         ],

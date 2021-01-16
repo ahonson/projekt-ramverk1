@@ -34,6 +34,10 @@ class QuestionController implements ContainerInjectableInterface
         $questions = $question->findAll();
         $res = $getstuff->questToTag($questions);
         $mytags = $getstuff->getTags($res);
+        $data = [
+            "src" => "img/theme/chesspieces1.png?width=1100&height=150&crop-to-fit&area=0,0,30,0",
+        ];
+        $page->add("anax/v2/image/default", $data, "flash");
         $page->add("question/overview", [
             "items" => $questions,
             "mytags" => $mytags
@@ -65,6 +69,10 @@ class QuestionController implements ContainerInjectableInterface
         $mytags = $getstuff->getTags($res);
         $user = $getstuff->getUser($nr);
         $comments = $getstuff->getComments($nr);
+        $data = [
+            "src" => "img/theme/chesspieces1.png?width=1100&height=150&crop-to-fit&area=0,0,30,0",
+        ];
+        $page->add("anax/v2/image/default", $data, "flash");
         $page->add("question/question", [
             "item" => $item,
             "mytags" => $mytags,
@@ -95,6 +103,10 @@ class QuestionController implements ContainerInjectableInterface
         $page = $this->di->get("page");
         $getstuff = new Getstuff($this->di);
         $tags = $getstuff->getAllTags();
+        $data = [
+            "src" => "img/theme/chesspieces1.png?width=1100&height=150&crop-to-fit&area=0,0,30,0",
+        ];
+        $page->add("anax/v2/image/default", $data, "flash");
         $page->add("question/newquestion", [
             "title" => "",
             "textbody" => "",

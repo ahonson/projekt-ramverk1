@@ -7115,3 +7115,12 @@ tr:nth-child(even) {
     background-color: #a56600;
     color: #eee;
 }
+
+/* .site-logo-text, */
+.site-logo-text a span img {
+    display: block;
+}
+
+.site-logo {
+    display: none;
+}

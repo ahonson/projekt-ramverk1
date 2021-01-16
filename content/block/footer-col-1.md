@@ -1,3 +1,3 @@
 #### [Stack overflow](https://stackoverflow.com/)
 
-Det här är en länk till den riktiga webbplatsen.
+Under arbetets gång hämtade jag inspiration från denna webbplats.

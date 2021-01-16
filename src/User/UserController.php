@@ -57,6 +57,10 @@ class UserController implements ContainerInjectableInterface
         $page = $this->di->get("page");
         $getstuff = new Getstuff($this->di);
         $users = $getstuff->getUsers();
+        $data = [
+            "src" => "img/theme/chesspieces1.png?width=1100&height=150&crop-to-fit&area=0,0,30,0",
+        ];
+        $page->add("anax/v2/image/default", $data, "flash");
         $page->add("user/overview", [
             "items" => $users
         ]);
@@ -89,6 +93,10 @@ class UserController implements ContainerInjectableInterface
         $user = $getstuff->getUser($nr);
         $allcomments = $getstuff->getAllCommentsWhere($nr);
         $allanswers = $getstuff->getAllAnswersWhere($nr);
+        $data = [
+            "src" => "img/theme/chesspieces1.png?width=1100&height=150&crop-to-fit&area=0,0,30,0",
+        ];
+        $page->add("anax/v2/image/default", $data, "flash");
         $page->add("user/user", [
             "allanswers" => $allanswers,
             "mytags" => $mytags,

@@ -27,7 +27,10 @@ class TagController implements ContainerInjectableInterface
         $page = $this->di->get("page");
         $tag = new Tag();
         $tag->setDb($this->di->get("dbqb"));
-
+        $data = [
+            "src" => "img/theme/chesspieces1.png?width=1100&height=150&crop-to-fit&area=0,0,30,0",
+        ];
+        $page->add("anax/v2/image/default", $data, "flash");
         $page->add("tag/overview", [
             "items" => $tag->findAll(),
         ]);
@@ -55,6 +58,10 @@ class TagController implements ContainerInjectableInterface
         $getstuff = new Getstuff($this->di);
         $tag = $getstuff->getTag($nr);
         $questions = $getstuff->tagToQuest($nr);
+        $data = [
+            "src" => "img/theme/chesspieces1.png?width=1100&height=150&crop-to-fit&area=0,0,30,0",
+        ];
+        $page->add("anax/v2/image/default", $data, "flash");
         $page->add("tag/tag", [
             "tag" => $tag,
             "questions" => $questions
