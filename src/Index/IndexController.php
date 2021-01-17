@@ -42,7 +42,11 @@ class IndexController implements ContainerInjectableInterface
         $getstuff = new Getstuff($this->di);
         $res = $getstuff->questToTag($top3questions);
         $mytags = $getstuff->getTags($res);
-        // var_dump($top3tags);
+
+        $top3users = $getstuff->getTopUsers(3);
+        // $sql = "";
+        // $top3users = $this->di->dbqb->executeFetchAll($sql);
+        // var_dump($top3users);
         // die(",,,,,,,,,,,,,,,,");
 
         $page = $this->di->get("page");
@@ -58,7 +62,7 @@ class IndexController implements ContainerInjectableInterface
             "top3tags" => $top3tags
         ], "sidebar-right");
         $page->add("index/topusers", [
-            // "top3users" => $top3users
+            "top3users" => $top3users
         ]);
 
         return $page->render([

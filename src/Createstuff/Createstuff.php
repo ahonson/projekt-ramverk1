@@ -86,7 +86,7 @@ class Createstuff
         $answer->setDb($this->di->get("dbqb"));
         $answer->userid = $userid;
         $answer->questionid = $questionid;
-        $answer->textbody = $textbody;
+        $answer->textbody = htmlentities($textbody);
         $answer->rating = 0;
         $answer->accepted = 0;
         $answer->created = $this->centralEuropeanTime();
@@ -101,7 +101,7 @@ class Createstuff
         $acomment->setDb($this->di->get("dbqb"));
         $acomment->userid = $userid;
         $acomment->answerid = $answerid;
-        $acomment->textbody = $textbody;
+        $acomment->textbody = htmlentities($textbody);
         $acomment->rating = 0;
         $acomment->created = $this->centralEuropeanTime();
         $acomment->updated = null;
@@ -115,7 +115,7 @@ class Createstuff
         $qcomment->setDb($this->di->get("dbqb"));
         $qcomment->userid = $userid;
         $qcomment->questionid = $questionid;
-        $qcomment->textbody = $textbody;
+        $qcomment->textbody = htmlentities($textbody);
         $qcomment->rating = 0;
         $qcomment->created = $this->centralEuropeanTime();
         $qcomment->updated = null;
@@ -128,7 +128,7 @@ class Createstuff
         $question = new Question();
         $question->setDb($this->di->get("dbqb"));
         $question->title = $title;
-        $question->textbody = $textbody;
+        $question->textbody = htmlentities($textbody);
         $question->userid = $userid;
         $question->rating = 0;
         $question->created = $this->centralEuropeanTime();
@@ -141,7 +141,7 @@ class Createstuff
     public function saveQuest2Tag($tags, $textbody)
     {
         $getstuff = new Getstuff($this->di);
-        $questions = $getstuff->getQuestionsWhere("textbody = ?", $textbody);
+        $questions = $getstuff->getQuestionsWhere("textbody = ?", htmlentities($textbody));
         $id = 1;
         for ($i=0; $i < count($questions); $i++) {
             $id = $questions[$i]->id;

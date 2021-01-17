@@ -204,6 +204,24 @@ class Getstuff
         return $mytags;
     }
 
+    public function getTopUsers($limit) : array
+    {
+        $users = $this->getUsers();
+        for ($i=0; $i < count($users); $i++) {
+            $questions = $this->getQuestionsWhere("userid = ?", $users[$i]->id);
+            $allcomments = $this->getAllCommentsWhere($users[$i]->id);
+            $allanswers = $this->getAllAnswersWhere($users[$i]->id);
+            $users[$i]->questions = count($questions);
+            $users[$i]->comments = count($allcomments);
+            $users[$i]->answers = count($allanswers);
+            $users[$i]->total = count($questions) + count($allcomments) + count($allanswers);
+        }
+        usort($users, function($first, $second) {
+            return $first->total < $second->total;
+        });
+        return array_slice($users, 0, $limit);
+    }
+
     public function getUser($nr) : object
     {
         $user = new User();
