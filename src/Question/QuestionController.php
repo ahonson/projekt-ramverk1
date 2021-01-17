@@ -29,9 +29,10 @@ class QuestionController implements ContainerInjectableInterface
         }
         $page = $this->di->get("page");
         $getstuff = new Getstuff($this->di);
-        $question = new Question();
-        $question->setDb($this->di->get("dbqb"));
-        $questions = $question->findAll();
+        // $question = new Question();
+        // $question->setDb($this->di->get("dbqb"));
+        // $questions = $question->findAll();
+        $questions = $getstuff->getQuestions();
         $res = $getstuff->questToTag($questions);
         $mytags = $getstuff->getTags($res);
         $data = [

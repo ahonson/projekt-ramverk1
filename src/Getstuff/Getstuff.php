@@ -152,8 +152,12 @@ class Getstuff
     {
         $question = new Question();
         $question->setDb($this->di->get("dbqb"));
-        $item = $question->findAll();
-        return $item;
+        $items = $question->findAll();
+        for ($i=0; $i < count($items); $i++) {
+            $answers = $this->getAnswers($items[$i]->id);
+            $items[$i]->answercount = count($answers);
+        }
+        return $items;
     }
 
     public function getQuestionsWhere($search, $nr) : array
