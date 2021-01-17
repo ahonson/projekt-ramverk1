@@ -7091,7 +7091,7 @@ tr:nth-child(even) {
 }
 
 .questionanswer {
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
     display: table-cell;
 }
 
@@ -7106,6 +7106,8 @@ tr:nth-child(even) {
     background-color: #b67700;
     color: #111;
     text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
 }
 
 .questiontag:visited,

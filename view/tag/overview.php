@@ -15,7 +15,10 @@ $items = isset($items) ? $items : null;
 endif;
 ?>
 
-<table class="usertable">
+<?php foreach ($items as $item) : ?>
+    <a class="questiontag" href="<?= url("tag/tag/{$item->id}"); ?>"><?= $item->name ?></a>
+<?php endforeach ?>
+<!-- <table class="usertable">
     <tr>
         <th>Id</th>
         <th>Namn</th>
@@ -28,4 +31,4 @@ endif;
         <td class=""><a href="<?= url("tag/tag/{$item->id}"); ?>"><?= $item->name ?></a></td>
     </tr>
     <?php endforeach; ?>
-</table>
+</table> -->
