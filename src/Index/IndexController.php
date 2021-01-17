@@ -36,6 +36,12 @@ class IndexController implements ContainerInjectableInterface
         $this->di->get("dbqb")->connect();
         $sql = "SELECT *, COUNT(name) AS ct FROM Tag AS t, QuestionHasTag AS qht WHERE t.id = qht.tagid GROUP BY name ORDER BY ct DESC LIMIT 3;";
         $top3tags = $this->di->dbqb->executeFetchAll($sql);
+
+        $sql = "SELECT * FROM Question ORDER BY created DESC LIMIT 3;";
+        $top3questions = $this->di->dbqb->executeFetchAll($sql);
+        $getstuff = new Getstuff($this->di);
+        $res = $getstuff->questToTag($top3questions);
+        $mytags = $getstuff->getTags($res);
         // var_dump($top3tags);
         // die(",,,,,,,,,,,,,,,,");
 
@@ -45,7 +51,8 @@ class IndexController implements ContainerInjectableInterface
             // "top3tags" => $top3tags
         ]);
         $page->add("index/topquestions", [
-            // "top3tags" => $top3tags
+            "top3questions" => $top3questions,
+            "mytags" => $mytags
         ]);
         $page->add("index/toptags", [
             "top3tags" => $top3tags

@@ -22,4 +22,7 @@ Follow these steps to get a working copy of the website. Start a PHP(7) webserve
 `make install`
 
 You can reset the database with:
-`sqlite3 data.db.sqlite < sql/ddl/chess_sqlite.sql`
+`sqlite3 data/db.sqlite < sql/ddl/reset_chess_sqlite.sql`
+
+You can add content to the database with:
+`sqlite3 data/db.sqlite < sql/ddl/chess_sqlite.sql`
