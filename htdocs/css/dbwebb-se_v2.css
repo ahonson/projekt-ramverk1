@@ -7083,6 +7083,7 @@ tr:nth-child(even) {
 .vote {
     float: left;
     padding-right: 40px;
+    display: table-cell;
 }
 
 .commentvote {
@@ -7091,6 +7092,7 @@ tr:nth-child(even) {
 
 .questionanswer {
     margin-bottom: 50px;
+    display: table-cell;
 }
 
 .ratingscore {

@@ -10,9 +10,14 @@ return [
     // Here comes the menu items
     "items" => [
         [
-            "text" => "Hem",
+            "text" => "Home",
             "url" => "",
             "title" => "Första sidan, börja här.",
+        ],
+        [
+            "text" => "Profile",
+            "url" => "profile",
+            "title" => "Din profil.",
         ],
         [
             "text" => "Q&A",
@@ -20,19 +25,24 @@ return [
             "title" => "Samtliga frågor"
         ],
         [
-            "text" => "Om",
-            "url" => "om",
-            "title" => "Om denna webbplats.",
-        ],
-        [
-            "text" => "Taggar",
+            "text" => "Tags",
             "url" => "tag",
             "title" => "Info om taggarna.",
         ],
         [
-            "text" => "Användare",
+            "text" => "Users",
             "url" => "user",
             "title" => "Info om användarna",
+        ],
+        [
+            "text" => "About",
+            "url" => "om",
+            "title" => "Om denna webbplats.",
+        ],
+        [
+            "text" => "Login",
+            "url" => "login",
+            "title" => "Login.",
         ],
     ],
 ];

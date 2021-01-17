@@ -2,6 +2,10 @@
 
 namespace Anax\View;
 
+use Michelf\MarkdownExtra;
+
+$markdown = new MarkdownExtra();
+
 ?>
 <h1 id="question-<?= $item->id ?>">Fråga nr <?= $item->id ?>: <?= $item->title ?></h1>
 <div class="vote">
@@ -18,13 +22,13 @@ namespace Anax\View;
 
 <div class="questionanswer">
     <p><em>Publicerad av <a href="<?= url("user/user/{$user->id}"); ?>"><?= $user->name ?></a> (<?= $item->created ?>)</em></p>
-    <p><?= $item->textbody ?></p>
-    <p><strong>Taggar</strong>:
+    <p><?= $markdown->defaultTransform($item->textbody) ?></p>
+</div>
+<p><strong>Taggar</strong>:
     <?php foreach ($item->tags as $key => $tag): ?>
         <a class="questiontag" href="../../tag/tag/<?= $key ?>"><?= $tag ?></a>
     <?php endforeach; ?>
-    </p>
-</div>
+</p>
 
 <div class="answerdiv">
     <form class="" action="" method="post">
@@ -50,7 +54,7 @@ namespace Anax\View;
         </div>
         <div class="commenttext">
             <h6 id="qcomment-<?= $index + 1 ?>">Kommentar av <a href="<?= url("user/user/{$comment->userid}"); ?>"><?= $comment->username ?></a> (<?= $comment->created ?>)</h6>
-            <p><?= $comment->textbody ?></p>
+            <p><?= $markdown->defaultTransform($comment->textbody) ?></p>
         </div>
     </div>
 <?php endforeach;} ?>
@@ -82,7 +86,7 @@ namespace Anax\View;
 </div>
 <div class="questionanswer">
 <p><em>Skrivet av <a href="<?= url("user/user/{$answer->userid}"); ?>"><?= $answer->username ?></a> (<?= $answer->created ?>)</em></p>
-<p><?= $answer->textbody ?></p>
+<p><?= $markdown->defaultTransform($answer->textbody) ?></p>
 </div>
 <!-- <p>Poäng: <?= $answer->rating ?></p> -->
     <?php if ($answer->comments) { foreach ($answer->comments as $index => $comment) : ?>
@@ -100,7 +104,7 @@ namespace Anax\View;
             </div>
             <div class="commenttext">
                 <h6 id="acomment-<?= $index + 1 ?>">Kommentar av <a href="<?= url("user/user/{$comment->userid}"); ?>"><?= $comment->username ?></a> (<?= $comment->created ?>)</h6>
-                <p><?= $comment->textbody ?></p>
+                <p><?= $markdown->defaultTransform($comment->textbody) ?></p>
             </div>
         </div>
 

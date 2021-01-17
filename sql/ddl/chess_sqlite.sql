@@ -163,14 +163,24 @@ INSERT INTO User (email, password, name, gravatar) VALUES ("joe@joe.joe", "joe12
 INSERT INTO User (email, password, name, gravatar) VALUES ("jane@jane.jane", "jane123", "Jane Doe", "https://www.gravatar.com/avatar/42cde8637248112a6e210f053603b600?s=32&d=identicon&r=PG");
 INSERT INTO User (email, password, name, gravatar) VALUES ("jack@jack.jack", "jack123", "Jack Doe", "https://www.gravatar.com/avatar/322e96010531f4692922fc2b22482ed1?s=32&d=identicon&r=PG");
 INSERT INTO User (email, password, name, gravatar) VALUES ("hate@hate.hate", "hate123", "Hate Doe", "https://www.gravatar.com/avatar/bf3ad5e9ebf719bda30b3d500dde1ea7?s=32&d=identicon&r=PG");
-INSERT INTO Question (userid, title, textbody) VALUES (1, "Hur blir jag stormästare?", "Jag vill bli stormästare, kanske världsmästare inom 10-15 år. Jag har alltså väldigt stora ambitioner men vet inte hur jag ska komma igång. Jag har memorerat en massa öppningar, men till ingen nytta. Kan ni tipsa mig med något? Hjälp mig!");
-INSERT INTO Question (userid, title, textbody) VALUES (2, "Damgambit", "Som svart har jag länge valt att avböja boendeoffret, men på sistone har jag börjat experimentera med antagen damgambit. Det verkar funka bra, men främst mot svaga spelare. Vad tycker ni?");
-INSERT INTO Question (userid, title, textbody) VALUES (3, "Till salu", "Jag vill sälja mina schackböcker om öppningar, slutspel, reglerna och spelets historia: Ngn som är intresserad?");
+INSERT INTO Question (userid, title, textbody) VALUES (1, "Hur blir jag stormästare?", "**Jag vill bli stormästare**, kanske världsmästare inom 10-15 år. Jag har alltså väldigt stora ambitioner men vet inte hur jag ska komma igång. Jag har memorerat en massa öppningar, men till ingen nytta. Kan ni tipsa mig med något? Hjälp mig!");
+INSERT INTO Question (userid, title, textbody) VALUES (2, "Damgambit", "Som svart har jag länge valt att *avböja boendeoffret*, men på sistone har jag börjat experimentera med **antagen damgambit**. Det verkar funka bra, men främst mot svaga spelare.
+
+Vad tycker ni?");
+INSERT INTO Question (userid, title, textbody) VALUES (3, "Till salu", "Jag **vill sälja** mina *schackböcker* om
+
+* öppningar
+* slutspel
+* reglerna
+* spelets historia
+
+Ngn som är intresserad?");
 INSERT INTO Question (userid, title, textbody) VALUES (1, "En passant", "Jag är nybörjare och behöver lite hjälp. Är det ngn som kan förklara för mig vad en passant är för ng?. Jag vet att det har ngt med bönderna att göra men har aldrig riktigt förstått vad det hela går ut på.");
 INSERT INTO Answer (userid, questionid, textbody) VALUES (2, 1, "Man ska träna slutspel och analysera positionella partier. Att bara plugga öppningar leder ingenstans.");
 INSERT INTO Answer (userid, questionid, textbody) VALUES (3, 1, "Ett annat bra sätt är att spela igenom klassiska partier och analysera dragen med hjälp av en dator.");
 INSERT INTO Answer (userid, questionid, textbody) VALUES (1, 3, "Jag vill gärna köpa en öppningsbok till en billig peng.");
 INSERT INTO Answer (userid, questionid, textbody) VALUES (3, 2, "Antagen damgambit är bäst utan tvekan.");
+INSERT INTO Answer (userid, questionid, textbody) VALUES (2, 4, "[Här](https://www.google.com) kan du hitta mycket bra information spelreglerna och mycket mer.");
 INSERT INTO Tag (name) VALUES ("slutspel");
 INSERT INTO Tag (name) VALUES ("öppning");
 INSERT INTO Tag (name) VALUES ("spelstyrka");
