@@ -29,9 +29,11 @@ class LoginController implements ContainerInjectableInterface
         }
         $page = $this->di->get("page");
         $request = $this->di->request;
+        $response = $this->di->get("response");
         $session = $this->di->session;
         if ($session->get("userLoginStatus")->isLoggedIn()) {
             $session->get("userLoginStatus")->logout();
+            return $response->redirect("");
         }
 
         if ($session->get("userLoginStatus") === null) {
