@@ -2,16 +2,17 @@
 
 namespace artes\Createstuff;
 
-use artes\User\UserRatesAnswer;
-use artes\User\UserRatesQuestion;
-use artes\User\UserRatesAComment;
-use artes\User\UserRatesQComment;
+use artes\AComment\AComment;
+use artes\Answer\Answer;
+use artes\Getstuff\Getstuff;
+use artes\QComment\QComment;
 use artes\Question\Question;
 use artes\Question\QuestionHasTag;
-use artes\Getstuff\Getstuff;
-use artes\Answer\Answer;
-use artes\AComment\AComment;
-use artes\QComment\QComment;
+use artes\User\User;
+use artes\User\UserRatesAnswer;
+use artes\User\UserRatesAComment;
+use artes\User\UserRatesQComment;
+use artes\User\UserRatesQuestion;
 
 /**
   * A class for adding stuff to the db.
@@ -156,8 +157,18 @@ class Createstuff
         }
     }
 
-    // public function saveUser()
-    // {
-    //
-    // }
+    public function saveUser($name, $email, $password)
+    {
+        $user = new User();
+        $user->setDb($this->di->get("dbqb"));
+        $user->email = $email;
+        $user->password = md5($password);
+        $user->name = $name;
+        $user->gravatar = "https://www.gravatar.com/avatar/" . md5($email). "?s=32&d=identicon&r=PG";
+        $user->rating = 0;
+        $user->created = $this->centralEuropeanTime();
+        $user->updated = null;
+        $user->deleted = null;
+        $user->save();
+    }
 }
