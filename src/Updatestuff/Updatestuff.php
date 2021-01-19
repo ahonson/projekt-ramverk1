@@ -39,11 +39,14 @@ class Updatestuff
     // {
     //
     // }
-    //
-    // public function editUser()
-    // {
-    //
-    // }
+
+    public function editUser($id, $password)
+    {
+        $user = $this->getstuff->getUser($id);
+        $user->setDb($this->di->get("dbqb"));
+        $user->password = md5($password);
+        $user->save();
+    }
 
     public function editQuestion($value, $id)
     {

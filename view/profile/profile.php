@@ -17,18 +17,18 @@ namespace Anax\View;
 <p>Du har röstat <strong><?= $user->up + $user->down ?> gånger</strong> (<?= $user->up ?> uppåtröster och <?= $user->down ?> nedåtröster).</p>
 
 <h2>Nytt lösenord</h2>
-<p>Här kan du ändra ditt namn och ditt lösenord. OBS! Ett giltigt lösenord består av minst 6 tecken. Det innehåller minst en siffra, en liten och en stor bokstav.</p>
+<p>Här kan du ändra ditt lösenord. OBS! Ett giltigt lösenord består av minst 6 tecken. Det innehåller minst en siffra, en liten och en stor bokstav.</p>
+
+<p <?= $updatemsg !== "" ? "class='danger'" : null ?>><?= $updatemsg ?></p>
 
 <form class="" action="" method="post">
     <fieldset>
-        <legend>Ändra din profil</legend>
-        <label for="newname">Ditt nya namn.</label><br>
-        <input type="text" name="newname" value="<?= $user->name ?>"><br><br>
+        <legend>Ändra ditt lösenord</legend>
         <label for="currentpass">Ditt nuvarande lösenord.</label><br>
         <input type="password" name="currentpass" value=""><br><br>
         <label for="newpass1">Ditt nya lösenord.</label><br>
         <input type="password" name="newpass1" value=""><br><br>
-        <label for="newpass2">Ditt nya lösenord en gång till.</label><br>
+        <label for="newpass2">Ditt nya lösenord igen.</label><br>
         <input type="password" name="newpass2" value="">
         <input type="submit" name="submit" value="ÄNDRA">
     </fieldset>
