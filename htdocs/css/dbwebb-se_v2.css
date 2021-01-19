@@ -7147,3 +7147,23 @@ tr:nth-child(even) {
     border: 2px #0f0 solid;
     color: #008b00;
 }
+
+.writetext,
+.writetext:visited {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    padding: 15px;
+    border: 1px solid #000;
+    width: 50%;
+    margin: auto;
+    border-radius: 30px;
+    color: #834400;
+    background-color: #cca;
+}
+
+.writetext:hover {
+    color: #501100;
+    background-color: #ddb;
+    font-weight: bold;
+}

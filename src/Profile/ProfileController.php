@@ -6,8 +6,8 @@ namespace artes\Profile;
 use Anax\Route\Exception\NotFoundException;
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
-use artes\Getstuff\Getstuff;
 use artes\Createstuff\Createstuff;
+use artes\Getstuff\Getstuff;
 use artes\Updatestuff\Updatestuff;
 
 /**
@@ -32,9 +32,6 @@ class ProfileController implements ContainerInjectableInterface
         ];
 
         $page = $this->di->get("page");
-        $page->add("anax/v2/image/default", $data, "flash");
-        $page->add("profile/profile", [
-        ]);
         $response = $this->di->get("response");
         $session = $this->di->get("session");
 
@@ -42,6 +39,16 @@ class ProfileController implements ContainerInjectableInterface
             return $response->redirect("login");
         }
 
+        $loginid = $session->get("loginid");
+        $email = $session->get("email");
+        $getstuff = new Getstuff($this->di);
+        $user = $getstuff->getUser($email, "email");
+        $userdata = [
+            "user" => $user,
+            "loginid" => $loginid
+        ];
+        $page->add("anax/v2/image/default", $data, "flash");
+        $page->add("profile/profile", $userdata);
         return $page->render([
             "title" => "User profile",
         ]);

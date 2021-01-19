@@ -33,19 +33,13 @@ class LoginController implements ContainerInjectableInterface
         $session = $this->di->get("session");
         if ($session->get("userLoginStatus")->isLoggedIn()) {
             $session->get("userLoginStatus")->logout();
+            $session->set("loginid", null);
             return $response->redirect("");
         }
 
         if ($session->get("userLoginStatus") === null) {
             $session->set("userLoginStatus", new Login());
         }
-
-        // $success = $session->get("success") ? $session->get("success") : "";
-        // $loginemail = $success ? $session->get("email") : "";
-        // $warning = $session->get("warning") ? $session->get("warning") : "";
-        // $username = $warning ? $session->get("username") : "";
-        // $email = $warning ? $session->get("email") : "";
-        // $failedlogin = $request->getPost("failedlogin") ? $request->getPost("failedlogin") : "";
 
         $data = [
             "src" => "img/theme/chesspieces1.png?width=1100&height=150&crop-to-fit&area=0,0,30,0",
@@ -55,14 +49,6 @@ class LoginController implements ContainerInjectableInterface
         $session->set("success", "");
         $session->set("username", "");
         $session->set("email", "");
-        // $logindata = [
-        //     "warning" => $warning,
-        //     "success" => $success,
-        //     "email" => $email,
-        //     "username" => $username,
-        //     "loginemail" => $loginemail,
-        //     "failedlogin" => $failedlogin
-        // ];
 
         $page->add("anax/v2/image/default", $data, "flash");
         $page->add("login/login", $logindata);
@@ -79,7 +65,7 @@ class LoginController implements ContainerInjectableInterface
         $warning = $session->get("warning") ? $session->get("warning") : "";
         $username = $warning ? $session->get("username") : "";
         $email = $warning ? $session->get("email") : "";
-        $failedlogin = $request->getPost("failedlogin") ? $request->getPost("failedlogin") : "";
+        $failedlogin = $request->getPost("failedlogin") ? $request->getPost("failedlogin") : ($session->get("failedlogin") ? $session->get("failedlogin") : "");
 
         $logindata = [
             "success" => $success,
@@ -139,13 +125,15 @@ class LoginController implements ContainerInjectableInterface
             "password" => $password
         ];
 
+        // var_dump($data);
         if ($session->get("userLoginStatus")->loginSuccess($data)) {
+            $user = $getstuff->getUser($email, "email");
+            $session->set("loginid", $user->id);
             $session->set("email", $email);
             return $response->redirect("profile");
         }
 
-        // var_dump($data);
-        // die("---------------");
+        // die("------------------------------------------------------------");
         $data = [
             "failedlogin" => "We did not recognize your sign in details.",
             "loginemail" => $email,

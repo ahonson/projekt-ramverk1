@@ -70,6 +70,8 @@ class QuestionController implements ContainerInjectableInterface
         $mytags = $getstuff->getTags($res);
         $user = $getstuff->getUser($nr);
         $comments = $getstuff->getComments($nr);
+        $session = $this->di->get("session");
+        $loginid = $session->get("loginid") ? $session->get("loginid") : null;
         $data = [
             "src" => "img/theme/chesspieces1.png?width=1100&height=150&crop-to-fit&area=0,0,30,0",
         ];
@@ -80,7 +82,7 @@ class QuestionController implements ContainerInjectableInterface
             "answers" => $answers,
             "user" => $user,
             "comments" => $comments,
-            "loginid" => 4
+            "loginid" => $loginid
         ]);
 
         return $page->render([
@@ -101,6 +103,12 @@ class QuestionController implements ContainerInjectableInterface
         if ($mydi) {
             $this->di = $mydi;
         }
+        $response = $this->di->get("response");
+        $session = $this->di->get("session");
+        if (!$session->get("userLoginStatus")->isLoggedIn()) {
+            return $response->redirect("login");
+        }
+
         $page = $this->di->get("page");
         $getstuff = new Getstuff($this->di);
         $tags = $getstuff->getAllTags();
@@ -130,6 +138,13 @@ class QuestionController implements ContainerInjectableInterface
      */
     public function questionActionPost($nr) : object
     {
+        $response = $this->di->response;
+        $session = $this->di->get("session");
+        $loginid = $session->get("loginid") ? $session->get("loginid") : null;
+        if (!$loginid) {
+            $session->set("failedlogin", "Du måste logga in för att rösta eller skriva frågor, svar och kommentarer.");
+            return $response->redirect("login");
+        }
         $request = $this->di->request;
         $createstuff = new Createstuff($this->di);
         $editstuff = new Updatestuff($this->di);
@@ -174,7 +189,6 @@ class QuestionController implements ContainerInjectableInterface
             $createstuff->saveQComment($list[1], $list[2], $textbody);
         }
 
-        $response = $this->di->response;
         return $response->redirect("question/question/" . $nr . "#" . $list[3]);
     }
 

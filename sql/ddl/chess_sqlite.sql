@@ -176,12 +176,12 @@ INSERT INTO Question (userid, title, textbody) VALUES (3, "Till salu", "Jag **vi
 * spelets historia
 
 Ngn som är intresserad?");
-INSERT INTO Question (userid, title, textbody) VALUES (1, "En passant", "Jag är nybörjare och behöver lite hjälp. Är det ngn som kan förklara för mig vad en passant är för ng?. Jag vet att det har ngt med bönderna att göra men har aldrig riktigt förstått vad det hela går ut på.");
+INSERT INTO Question (userid, title, textbody) VALUES (1, "En passant", "Jag är nybörjare och behöver lite hjälp. Är det ngn som kan förklara för mig vad en passant är för ngt?. Jag vet att det har ngt med bönderna att göra men har aldrig riktigt förstått vad det hela går ut på.");
 INSERT INTO Answer (userid, questionid, textbody) VALUES (2, 1, "Man ska träna slutspel och analysera positionella partier. Att bara plugga öppningar leder ingenstans.");
 INSERT INTO Answer (userid, questionid, textbody) VALUES (3, 1, "Ett annat bra sätt är att spela igenom klassiska partier och analysera dragen med hjälp av en dator.");
 INSERT INTO Answer (userid, questionid, textbody) VALUES (1, 3, "Jag vill gärna köpa en öppningsbok till en billig peng.");
 INSERT INTO Answer (userid, questionid, textbody) VALUES (3, 2, "Antagen damgambit är bäst utan tvekan.");
-INSERT INTO Answer (userid, questionid, textbody) VALUES (2, 4, "[Här](https://www.google.com) kan du hitta mycket bra information spelreglerna och mycket mer.");
+INSERT INTO Answer (userid, questionid, textbody) VALUES (2, 4, "[Här](https://www.google.com) kan du hitta mycket bra information om spelreglerna och mycket mer.");
 INSERT INTO Tag (name) VALUES ("slutspel");
 INSERT INTO Tag (name) VALUES ("öppning");
 INSERT INTO Tag (name) VALUES ("spelstyrka");

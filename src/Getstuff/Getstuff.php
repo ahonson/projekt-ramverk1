@@ -222,11 +222,11 @@ class Getstuff
         return array_slice($users, 0, $limit);
     }
 
-    public function getUser($nr) : object
+    public function getUser($nr, $category="id") : object
     {
         $user = new User();
         $user->setDb($this->di->get("dbqb"));
-        $item = $user->find("id", $nr);
+        $item = $user->find($category, $nr);
         return $item;
     }
 

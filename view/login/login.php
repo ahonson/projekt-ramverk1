@@ -6,11 +6,11 @@ namespace Anax\View;
 
 <h1>Login</h1>
 
-<p>Du måste vara inloggad för att kunna fråga, svara, kommentera, rösta och redigera din profilsida.</p>
 
 <p <?= $success !== "" ? "class='success'" : null ?>><?= $success ?></p>
 <p <?= $failedlogin !== "" ? "class='danger'" : null ?>><?= $failedlogin ?></p>
 
+<p>Här kan du logga in.</p>
 <form action="" method="post">
     <input type="email" name="email" value="<?= $loginemail ?>" placeholder="Din epostadress">
     <input type="password" name="password" value="" placeholder="Ditt lösenord">

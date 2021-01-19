@@ -30,6 +30,7 @@ $markdown = new MarkdownExtra();
     <?php endforeach; ?>
 </p>
 
+<?php if ($loginid) : ?>
 <div class="answerdiv">
     <form class="" action="" method="post">
         <label for="answertext">Svara på frågan</label>
@@ -38,6 +39,9 @@ $markdown = new MarkdownExtra();
         <input type="submit" name="sendanswer" value="Skicka">
     </form>
 </div>
+<?php else : ?>
+<a class="writetext" href="../../login">Svara på frågan</a>
+<?php endif; ?>
 
 <?php if ($comments) { foreach ($comments as $index => $comment) : ?>
     <div class="commentdiv">
@@ -58,6 +62,8 @@ $markdown = new MarkdownExtra();
         </div>
     </div>
 <?php endforeach;} ?>
+
+<?php if ($loginid) : ?>
 <div class="qcommentdiv">
     <form class="" action="" method="post">
         <label for="qcommenttext">Skriv en kommentar</label>
@@ -66,6 +72,9 @@ $markdown = new MarkdownExtra();
         <input type="submit" name="sendqcomment" value="Skicka">
     </form>
 </div>
+<?php else : ?>
+    <!-- <a class="writetext" href="../../login">Skriv en kommentar</a> -->
+<?php endif; ?>
 
 <?php foreach ($answers as $index => $answer) : ?>
 
@@ -109,6 +118,9 @@ $markdown = new MarkdownExtra();
         </div>
 
     <?php endforeach;} ?>
+
+
+    <?php if ($loginid) : ?>
     <div class="qcommentdiv">
         <form class="" action="" method="post">
             <label for="acommenttext">Skriv en kommentar</label>
@@ -117,5 +129,8 @@ $markdown = new MarkdownExtra();
             <input type="submit" name="sendacomment" value="Skicka">
         </form>
     </div>
+    <?php else : ?>
+        <a class="writetext" href="../../login">Skriv en kommentar</a>
+    <?php endif; ?>
 
 <?php endforeach; ?>
