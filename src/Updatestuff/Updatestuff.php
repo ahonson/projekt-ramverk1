@@ -16,6 +16,7 @@ class Updatestuff
     public function __construct($di)
     {
         $this->di = $di;
+        $this->getstuff = new Getstuff($this->di);
     }
 
     // public function editAnswerRating()
@@ -45,38 +46,33 @@ class Updatestuff
 
     public function editQuestion($value, $id)
     {
-        $getstuff = new Getstuff($this->di);
-        $question = $getstuff->getQuestion($id);
+        $question = $this->getstuff->getQuestion($id);
         unset($question->tags);
-        $question->setDb($this->di->get("dbqb"));
-        $question->rating += $value;
-        $question->save();
+        $this->saveValue($question, $value);
     }
 
     public function editAnswer($value, $id)
     {
-        $getstuff = new Getstuff($this->di);
-        $answer = $getstuff->getAnswer($id);
-        $answer->setDb($this->di->get("dbqb"));
-        $answer->rating += $value;
-        $answer->save();
+        $answer = $this->getstuff->getAnswer($id);
+        $this->saveValue($answer, $value);
     }
 
     public function editAComment($value, $id)
     {
-        $getstuff = new Getstuff($this->di);
-        $acomment = $getstuff->getComment($id, "a");
-        $acomment->setDb($this->di->get("dbqb"));
-        $acomment->rating += $value;
-        $acomment->save();
+        $acomment = $this->getstuff->getComment($id, "a");
+        $this->saveValue($acomment, $value);
     }
 
     public function editQComment($value, $id)
     {
-        $getstuff = new Getstuff($this->di);
-        $qcomment = $getstuff->getComment($id);
-        $qcomment->setDb($this->di->get("dbqb"));
-        $qcomment->rating += $value;
-        $qcomment->save();
+        $qcomment = $this->getstuff->getComment($id);
+        $this->saveValue($qcomment, $value);
+    }
+
+    public function saveValue($object, $value)
+    {
+        $object->setDb($this->di->get("dbqb"));
+        $object->rating += $value;
+        $object->save();
     }
 }

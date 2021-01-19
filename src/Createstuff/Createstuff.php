@@ -31,45 +31,38 @@ class Createstuff
     public function saveAnswerRating($up, $answerid, $userid)
     {
         $ura = new UserRatesAnswer();
-        $ura->setDb($this->di->get("dbqb"));
-        $ura->up = $up;
         $ura->answerid = $answerid;
-        $ura->userid = $userid;
-        $ura->created = $this->centralEuropeanTime();
-        $ura->save();
+        $this->ratingSave($ura, $userid, $up);
     }
 
     public function saveACommentRating($up, $commentid, $userid)
     {
         $urac = new UserRatesAComment();
-        $urac->setDb($this->di->get("dbqb"));
-        $urac->up = $up;
         $urac->commentid = $commentid;
-        $urac->userid = $userid;
-        $urac->created = $this->centralEuropeanTime();
-        $urac->save();
+        $this->ratingSave($urac, $userid, $up);
     }
 
     public function saveQCommentRating($up, $commentid, $userid)
     {
         $urqc = new UserRatesQComment();
-        $urqc->setDb($this->di->get("dbqb"));
-        $urqc->up = $up;
         $urqc->commentid = $commentid;
-        $urqc->userid = $userid;
-        $urqc->created = $this->centralEuropeanTime();
-        $urqc->save();
+        $this->ratingSave($urqc, $userid, $up);
     }
 
     public function saveQuestionRating($up, $questionid, $userid)
     {
         $urq = new UserRatesQuestion();
-        $urq->setDb($this->di->get("dbqb"));
-        $urq->up = $up;
         $urq->questionid = $questionid;
-        $urq->userid = $userid;
-        $urq->created = $this->centralEuropeanTime();
-        $urq->save();
+        $this->ratingSave($urq, $userid, $up);
+    }
+
+    public function ratingSave($object, $userid, $up)
+    {
+        $object->up = $up;
+        $object->userid = $userid;
+        $object->created = $this->centralEuropeanTime();
+        $object->setDb($this->di->get("dbqb"));
+        $object->save();
     }
 
     public function centralEuropeanTime()
@@ -84,58 +77,38 @@ class Createstuff
     public function saveAnswer($questionid, $userid, $textbody)
     {
         $answer = new Answer();
-        $answer->setDb($this->di->get("dbqb"));
         $answer->userid = $userid;
         $answer->questionid = $questionid;
         $answer->textbody = htmlentities($textbody);
-        $answer->rating = 0;
         $answer->accepted = 0;
-        $answer->created = $this->centralEuropeanTime();
-        $answer->updated = null;
-        $answer->deleted = null;
-        $answer->save();
+        $this->saveDefault($answer);
     }
 
     public function saveAComment($answerid, $userid, $textbody)
     {
         $acomment = new AComment();
-        $acomment->setDb($this->di->get("dbqb"));
         $acomment->userid = $userid;
         $acomment->answerid = $answerid;
         $acomment->textbody = htmlentities($textbody);
-        $acomment->rating = 0;
-        $acomment->created = $this->centralEuropeanTime();
-        $acomment->updated = null;
-        $acomment->deleted = null;
-        $acomment->save();
+        $this->saveDefault($acomment);
     }
 
     public function saveQComment($questionid, $userid, $textbody)
     {
         $qcomment = new QComment();
-        $qcomment->setDb($this->di->get("dbqb"));
         $qcomment->userid = $userid;
         $qcomment->questionid = $questionid;
         $qcomment->textbody = htmlentities($textbody);
-        $qcomment->rating = 0;
-        $qcomment->created = $this->centralEuropeanTime();
-        $qcomment->updated = null;
-        $qcomment->deleted = null;
-        $qcomment->save();
+        $this->saveDefault($qcomment);
     }
 
     public function saveQuestion($title, $textbody, $userid, $tags)
     {
         $question = new Question();
-        $question->setDb($this->di->get("dbqb"));
         $question->title = $title;
         $question->textbody = htmlentities($textbody);
         $question->userid = $userid;
-        $question->rating = 0;
-        $question->created = $this->centralEuropeanTime();
-        $question->updated = null;
-        $question->deleted = null;
-        $question->save();
+        $this->saveDefault($question);
         $this->saveQuest2Tag($tags, $textbody); // $tags is an array of tagids
     }
 
@@ -160,15 +133,20 @@ class Createstuff
     public function saveUser($name, $email, $password)
     {
         $user = new User();
-        $user->setDb($this->di->get("dbqb"));
         $user->email = $email;
         $user->password = md5($password);
         $user->name = $name;
         $user->gravatar = "https://www.gravatar.com/avatar/" . md5($email). "?s=32&d=identicon&r=PG";
-        $user->rating = 0;
-        $user->created = $this->centralEuropeanTime();
-        $user->updated = null;
-        $user->deleted = null;
-        $user->save();
+        $this->saveDefault($user);
+    }
+
+    public function saveDefault($object)
+    {
+        $object->rating = 0;
+        $object->created = $this->centralEuropeanTime();
+        $object->updated = null;
+        $object->deleted = null;
+        $object->setDb($this->di->get("dbqb"));
+        $object->save();
     }
 }

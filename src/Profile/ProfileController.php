@@ -27,12 +27,6 @@ class ProfileController implements ContainerInjectableInterface
         if ($mydi) {
             $this->di = $mydi;
         }
-        $response = $this->di->response;
-        $session = $this->di->session;
-        if (!$session->get("userLoginStatus")->isLoggedIn()) {
-            return $response->redirect("login");
-        }
-
         $data = [
             "src" => "img/theme/chesspieces1.png?width=1100&height=150&crop-to-fit&area=0,0,30,0",
         ];
@@ -41,6 +35,12 @@ class ProfileController implements ContainerInjectableInterface
         $page->add("anax/v2/image/default", $data, "flash");
         $page->add("profile/profile", [
         ]);
+        $response = $this->di->get("response");
+        $session = $this->di->get("session");
+
+        if (!$session->get("userLoginStatus")->isLoggedIn()) {
+            return $response->redirect("login");
+        }
 
         return $page->render([
             "title" => "User profile",

@@ -28,9 +28,9 @@ class LoginController implements ContainerInjectableInterface
             $this->di = $mydi;
         }
         $page = $this->di->get("page");
-        $request = $this->di->request;
+        $request = $this->di->get("request");
         $response = $this->di->get("response");
-        $session = $this->di->session;
+        $session = $this->di->get("session");
         if ($session->get("userLoginStatus")->isLoggedIn()) {
             $session->get("userLoginStatus")->logout();
             return $response->redirect("");
@@ -143,8 +143,12 @@ class LoginController implements ContainerInjectableInterface
         ]);
     }
 
-    public function errMsg($name, $email, $password, $password1) : string
+    public function errMsg($name, $email, $password, $password1, $mydi=null) : string
     {
+        if ($mydi) {
+            $this->di = $mydi;
+        }
+
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return "Invalid e-mail";
         } elseif (!$this->availableEmail($email)) {
