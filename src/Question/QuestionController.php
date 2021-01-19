@@ -68,7 +68,7 @@ class QuestionController implements ContainerInjectableInterface
         $answers = $getstuff->getAnswers($item->id);
         $res = $getstuff->questToTag([$item]);
         $mytags = $getstuff->getTags($res);
-        $user = $getstuff->getUser($nr);
+        $user = $getstuff->getUser($item->userid);
         $comments = $getstuff->getComments($nr);
         $session = $this->di->get("session");
         $loginid = $session->get("loginid") ? $session->get("loginid") : null;
@@ -146,10 +146,39 @@ class QuestionController implements ContainerInjectableInterface
             return $response->redirect("login");
         }
         $request = $this->di->request;
+        $list = explode(";", $request->getPost("data", null));
+        $this->rateContent($list, $request);
+        $this->saveContent($list, $request);
+
+        return $response->redirect("question/question/" . $nr . "#" . $list[3]);
+    }
+
+    public function saveContent($list, $request)
+    {
+        $createstuff = new Createstuff($this->di);
+        $sendanswer = $request->getPost("sendanswer", null);
+        if ($sendanswer) {
+            $textbody = $request->getPost("answertext");
+            $createstuff->saveAnswer($list[1], $list[2], $textbody);
+        }
+
+        $sendacomment = $request->getPost("sendacomment", null);
+        if ($sendacomment) {
+            $textbody = $request->getPost("acommenttext");
+            $createstuff->saveAComment($list[1], $list[2], $textbody);
+        }
+
+        $sendqcomment = $request->getPost("sendqcomment", null);
+        if ($sendqcomment) {
+            $textbody = $request->getPost("qcommenttext");
+            $createstuff->saveQComment($list[1], $list[2], $textbody);
+        }
+    }
+
+    public function rateContent($list, $request)
+    {
         $createstuff = new Createstuff($this->di);
         $editstuff = new Updatestuff($this->di);
-        $list = explode(";", $request->getPost("data", null));
-        // [0] value, [1] textid, [2] userid, [3] scroll position
         $ratequestion = $request->getPost("ratequestion", null);
         if ($ratequestion === "") {
             $createstuff->saveQuestionRating($list[0], $list[1], $list[2]);
@@ -170,28 +199,7 @@ class QuestionController implements ContainerInjectableInterface
             $createstuff->saveACommentRating($list[0], $list[1], $list[2]);
             $editstuff->editAComment($list[0], $list[1]);
         }
-
-        $sendanswer = $request->getPost("sendanswer", null);
-        if ($sendanswer) {
-            $textbody = $request->getPost("answertext");
-            $createstuff->saveAnswer($list[1], $list[2], $textbody);
-        }
-
-        $sendacomment = $request->getPost("sendacomment", null);
-        if ($sendacomment) {
-            $textbody = $request->getPost("acommenttext");
-            $createstuff->saveAComment($list[1], $list[2], $textbody);
-        }
-
-        $sendqcomment = $request->getPost("sendqcomment", null);
-        if ($sendqcomment) {
-            $textbody = $request->getPost("qcommenttext");
-            $createstuff->saveQComment($list[1], $list[2], $textbody);
-        }
-
-        return $response->redirect("question/question/" . $nr . "#" . $list[3]);
     }
-
 
     /**
      * This is the index method action, it handles:

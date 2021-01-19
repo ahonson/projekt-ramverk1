@@ -98,21 +98,21 @@ $markdown = new MarkdownExtra();
 <p><?= $markdown->defaultTransform($answer->textbody) ?></p>
 </div>
 <!-- <p>Poäng: <?= $answer->rating ?></p> -->
-    <?php if ($answer->comments) { foreach ($answer->comments as $index => $comment) : ?>
+    <?php if ($answer->comments) { foreach ($answer->comments as $findex => $comment) : ?>
         <div class="commentdiv">
             <div class="commentvote">
                 <form class="upvote" action="" method="post">
-                    <input type="hidden" name="data" value="1;<?= $comment->id ?>;<?= $loginid ?>;acomment-<?= $index + 1 ?>">
+                    <input type="hidden" name="data" value="1;<?= $comment->id ?>;<?= $loginid ?>;answer-<?= $index + 1 ?>-acomment-<?= $findex + 1 ?>">
                     <input type="submit" name="rateacomment" value="">
                 </form>
                 <p class="ratingscore"><?= $comment->rating ?></p>
                 <form class="downvote" action="" method="post">
-                    <input type="hidden" name="data" value="-1;<?= $comment->id ?>;<?= $loginid ?>;acomment-<?= $index + 1 ?>">
+                    <input type="hidden" name="data" value="-1;<?= $comment->id ?>;<?= $loginid ?>;answer-<?= $index + 1 ?>-acomment-<?= $findex + 1 ?>">
                     <input type="submit" name="rateacomment" value="">
                 </form>
             </div>
             <div class="commenttext">
-                <h6 id="acomment-<?= $index + 1 ?>">Kommentar av <a href="<?= url("user/user/{$comment->userid}"); ?>"><?= $comment->username ?></a> (<?= $comment->created ?>)</h6>
+                <h6 id="answer-<?= $index + 1 ?>-acomment-<?= $findex + 1 ?>">Kommentar av <a href="<?= url("user/user/{$comment->userid}"); ?>"><?= $comment->username ?></a> (<?= $comment->created ?>)</h6>
                 <p><?= $markdown->defaultTransform($comment->textbody) ?></p>
             </div>
         </div>
