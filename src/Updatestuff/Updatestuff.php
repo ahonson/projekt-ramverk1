@@ -12,6 +12,7 @@ use artes\Getstuff\Getstuff;
 class Updatestuff
 {
     private $di;
+    private $getstuff;
 
     public function __construct($di)
     {

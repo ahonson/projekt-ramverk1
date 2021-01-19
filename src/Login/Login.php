@@ -7,6 +7,7 @@ namespace artes\Login;
  */
 class Login
 {
+    private $loggedIn;
 
     /**
      * Constructor to initiate a login object
