@@ -161,6 +161,17 @@ class GetstuffTest extends TestCase
     public function testGetTags()
     {
         $getstuff = new Getstuff($this->di);
+        $res = $getstuff->getAllTags();
+        $this->assertIsArray($res);
+        $this->assertNotEmpty($res);
+    }
+
+    /**
+     * Getstuff
+     */
+    public function testGetAllTags()
+    {
+        $getstuff = new Getstuff($this->di);
         $item = $getstuff->getQuestion(1);
         $answers = $getstuff->getAnswers($item->id);
         $matches = $getstuff->questToTag([$item]);
@@ -178,6 +189,17 @@ class GetstuffTest extends TestCase
         $res = $getstuff->getUsers();
         $this->assertIsArray($res);
         $this->assertNotEmpty($res);
+    }
+
+    /**
+     * Getstuff
+     */
+    public function testGetUserExtra()
+    {
+        $getstuff = new Getstuff($this->di);
+        $res = $getstuff->getUserExtra(1);
+        $this->assertIsObject($res);
+        $this->assertObjectHasAttribute("accepted", $res);
     }
 
     /**

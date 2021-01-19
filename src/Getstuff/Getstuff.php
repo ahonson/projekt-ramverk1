@@ -9,6 +9,10 @@ use artes\Question\Question;
 use artes\Question\QuestionHasTag;
 use artes\QComment\QComment;
 use artes\AComment\AComment;
+use artes\User\UserRatesAnswer;
+use artes\User\UserRatesQuestion;
+use artes\User\UserRatesAComment;
+use artes\User\UserRatesQComment;
 
 
 /**
@@ -45,11 +49,11 @@ class Getstuff
     //     return $res;
     // }
 
-    public function getAllAnswersWhere($nr) : array
+    public function getAllAnswersWhere($nr, $search="userid = ?") : array
     {
         $answer = new Answer();
         $answer->setDb($this->di->get("dbqb"));
-        $answers = $answer->findAllWhere("userid = ?", $nr);
+        $answers = $answer->findAllWhere($search, $nr);
         for ($i = 0; $i < count($answers); $i++) {
             $answers[$i] = $this->addInfo($answers[$i]);
         }
@@ -230,12 +234,50 @@ class Getstuff
         return $item;
     }
 
+    public function getUserExtra($value, $category="id") : object
+    {
+        $user = $this->getUser($value, $category);
+        $questions = $this->getQuestionsWhere("userid = ?", $user->id);
+        $allcomments = $this->getAllCommentsWhere($user->id);
+        $allanswers = $this->getAllAnswersWhere($user->id);
+        $acceptedanswers = $this->getAllAnswersWhere($user->id, "userid = ? AND accepted = 1");
+        $user->questions = count($questions);
+        $user->comments = count($allcomments);
+        $user->answers = count($allanswers);
+        $user->accepted = count($acceptedanswers);
+        $user->up = $this->getVotes($user->id, true);
+        $user->down = $this->getVotes($user->id, false);
+        return $user;
+    }
+
     public function getUsers() : array
     {
         $user = new User();
         $user->setDb($this->di->get("dbqb"));
         $item = $user->findAll();
         return $item;
+    }
+
+    public function getVotes($userid, $up=true) : int
+    {
+        if ($up) {
+            $search = "userid = ? AND up = 1";
+        } else {
+            $search = "userid = ? AND up = -1";
+        }
+        $urq = new UserRatesQuestion();
+        $ura = new UserRatesAnswer();
+        $urac = new UserRatesAComment();
+        $urqc = new UserRatesQComment();
+        $urq->setDb($this->di->get("dbqb"));
+        $ura->setDb($this->di->get("dbqb"));
+        $urac->setDb($this->di->get("dbqb"));
+        $urqc->setDb($this->di->get("dbqb"));
+        $urqcount = count($urq->findAllWhere($search, $userid));
+        $uracount = count($ura->findAllWhere($search, $userid));
+        $uraccount = count($urac->findAllWhere($search, $userid));
+        $urqccount = count($urqc->findAllWhere($search, $userid));
+        return ($urqcount + $uracount + $uraccount + $urqccount);
     }
 
     public function questToTag($questions, $search="questionid = ?") : array

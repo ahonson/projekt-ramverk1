@@ -42,7 +42,7 @@ class ProfileController implements ContainerInjectableInterface
         $loginid = $session->get("loginid");
         $email = $session->get("email");
         $getstuff = new Getstuff($this->di);
-        $user = $getstuff->getUser($email, "email");
+        $user = $getstuff->getUserExtra($email, "email");
         $userdata = [
             "user" => $user,
             "loginid" => $loginid
