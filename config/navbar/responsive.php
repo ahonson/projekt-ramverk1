@@ -1,4 +1,7 @@
 <?php
+
+use artes\Login\Login;
+
 /**
  * Supply the basis for the navbar as an array.
  */
@@ -90,6 +93,10 @@ $navbarloggedin = [
 ];
 
 // $session->get("userLoginStatus")->isLoggedIn()
+
+if (!isset($_SESSION["userLoginStatus"])) {
+    $_SESSION["userLoginStatus"] = new Login();
+}
 
 $loggedin = $_SESSION["userLoginStatus"]->isLoggedIn() ?? null;
 

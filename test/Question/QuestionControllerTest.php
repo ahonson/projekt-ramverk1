@@ -39,33 +39,33 @@ class QuestionControllerTest extends TestCase
     /**
      * Getstuff
      */
-    // public function testIndexActionGet()
-    // {
-    //     $getstuff = new QuestionController();
-    //     // var_dump($this->di);
-    //     $res = $getstuff->indexActionGet($this->di);
-    //     $this->assertInstanceOf(ResponseUtility::class, $res);
-    // }
+    public function testIndexActionGet()
+    {
+        $getstuff = new QuestionController();
+        // var_dump($this->di);
+        $res = $getstuff->indexActionGet($this->di);
+        $this->assertInstanceOf(ResponseUtility::class, $res);
+    }
 
     /**
      * Getstuff
      */
-    // public function testQuestionActionGet()
-    // {
-    //     $getstuff = new QuestionController();
-    //     $res = $getstuff->questionActionGet(1, $this->di);
-    //     $this->assertInstanceOf(ResponseUtility::class, $res);
-    // }
+    public function testQuestionActionGet()
+    {
+        $getstuff = new QuestionController();
+        $res = $getstuff->questionActionGet(1, $this->di);
+        $this->assertInstanceOf(ResponseUtility::class, $res);
+    }
 
     /**
      * Getstuff
      */
-    // public function testNewquestionActionGet()
-    // {
-    //     $getstuff = new QuestionController();
-    //     $res = $getstuff->newquestionActionGet($this->di);
-    //     $this->assertInstanceOf(ResponseUtility::class, $res);
-    // }
+    public function testNewquestionActionGet()
+    {
+        $getstuff = new QuestionController();
+        $res = $getstuff->newquestionActionGet($this->di);
+        $this->assertInstanceOf(ResponseUtility::class, $res);
+    }
 
     /**
      * Getstuff
