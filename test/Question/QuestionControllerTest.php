@@ -107,4 +107,36 @@ class QuestionControllerTest extends TestCase
         $res = $getstuff->newquestionActionPost();
         $this->assertInstanceOf(ResponseUtility::class, $res);
     }
+
+    public function testRateContent()
+    {
+        $getstuff = new QuestionController();
+        $getstuff->setDI($this->di);
+
+        $request = $this->di->get("request");
+        $request->setGlobals([
+            "post" => [
+                "ratequestion" => "blabla"
+            ],
+        ]);
+        $list = [1, 2, 3, 4];
+        $res = $getstuff->rateContent($list, $request);
+        $this->assertTrue($res);
+    }
+
+    public function testSaveContent()
+    {
+        $getstuff = new QuestionController();
+        $getstuff->setDI($this->di);
+
+        $request = $this->di->get("request");
+        $request->setGlobals([
+            "post" => [
+                "ratequestion" => "blabla"
+            ],
+        ]);
+        $list = [1, 2, 3, 4];
+        $res = $getstuff->saveContent($list, $request);
+        $this->assertTrue($res);
+    }
 }

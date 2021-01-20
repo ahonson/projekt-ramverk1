@@ -95,7 +95,7 @@ class ProfileController implements ContainerInjectableInterface
         if ($mydi) {
             $this->di = $mydi;
         }
-        $request = $this->di->request;
+        $request = $this->di->get("request");
         $pass = trim($request->getPost("currentpass", null));
         $pass1 = trim($request->getPost("newpass1", null));
         $pass2 = trim($request->getPost("newpass2", null));

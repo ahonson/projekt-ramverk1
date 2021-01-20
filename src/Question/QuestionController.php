@@ -173,6 +173,7 @@ class QuestionController implements ContainerInjectableInterface
             $textbody = $request->getPost("qcommenttext");
             $createstuff->saveQComment($list[1], $list[2], $textbody);
         }
+        return true;
     }
 
     public function rateContent($list, $request)
@@ -199,6 +200,7 @@ class QuestionController implements ContainerInjectableInterface
             $createstuff->saveACommentRating($list[0], $list[1], $list[2]);
             $editstuff->editAComment($list[0], $list[1]);
         }
+        return true;
     }
 
     /**

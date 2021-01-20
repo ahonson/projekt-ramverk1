@@ -72,6 +72,14 @@ class ProfileControllerTest extends TestCase
         $this->assertInstanceOf(ResponseUtility::class, $res);
     }
 
+    public function testIndexActionPost()
+    {
+        $profilecontroller = new ProfileController();
+        $res = $profilecontroller->indexActionPost($this->di);
+        $this->assertInstanceOf(ResponseUtility::class, $res);
+    }
+
+
     public function testPlural()
     {
         $profilecontroller = new ProfileController();
@@ -79,5 +87,14 @@ class ProfileControllerTest extends TestCase
         $res1 = $profilecontroller->plural(1, 3, 1, 0, 3);
         $this->assertIsArray($res);
         $this->assertIsArray($res1);
+    }
+
+    public function testCheckPasswords()
+    {
+        $profilecontroller = new ProfileController();
+        $res = $profilecontroller->checkPasswords("Pass123", "Pass123");
+        $res1 = $profilecontroller->checkPasswords("Pass123", "hfgnfgnf");
+        $this->assertTrue($res);
+        $this->assertFalse($res1);
     }
 }

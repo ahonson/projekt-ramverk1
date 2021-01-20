@@ -27,6 +27,7 @@ if (count($allcomments) === 1) {
         <th>Title</th>
         <th>Created</th>
         <th>Score</th>
+        <th>Answers</th>
         <th>Tags</th>
     </tr>
     <?php foreach ($items as $index => $item) : ?>
@@ -35,6 +36,7 @@ if (count($allcomments) === 1) {
         <td class=""><a href="<?= url("question/question/{$item->id}"); ?>"><?= $item->title ?></a></td>
         <td><?= $item->created ?></td>
         <td><?= $item->rating ?></td>
+        <td><?= $item->answers ?></td>
         <td><?= $mytags[$index] ?></td>
     </tr>
     <?php endforeach; ?>

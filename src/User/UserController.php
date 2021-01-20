@@ -88,6 +88,11 @@ class UserController implements ContainerInjectableInterface
         $getstuff = new Getstuff($this->di);
         // $item = $this->getQuestion($nr);
         $questions = $getstuff->getQuestionsWhere("userid = ?", $nr);
+        $questionlength = count($questions);
+        for ($i=0; $i < $questionlength; $i++) {
+            $answers = $getstuff->getAllAnswersWhere($questions[$i]->id, "questionid = ?");
+            $questions[$i]->answers = count($answers);
+        }
         $res = $getstuff->questToTag($questions);
         $mytags = $getstuff->getTags($res);
         $user = $getstuff->getUser($nr);
