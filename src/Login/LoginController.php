@@ -89,8 +89,11 @@ class LoginController implements ContainerInjectableInterface
      *
      * @return object
      */
-    public function indexActionPost() : object
+    public function indexActionPost($mydi=null) : object
     {
+        if ($mydi) {
+            $this->di = $mydi;
+        }
         $page = $this->di->get("page");
         $request = $this->di->get("request");
         $response = $this->di->get("response");

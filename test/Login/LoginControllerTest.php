@@ -45,6 +45,16 @@ class LoginControllerTest extends TestCase
         $this->assertInstanceOf(ResponseUtility::class, $res);
     }
 
+    /**
+     * Login
+     */
+    public function testIndexActionPost()
+    {
+        $logincontroller = new LoginController();
+        $res = $logincontroller->indexActionPost($this->di);
+        $this->assertInstanceOf(ResponseUtility::class, $res);
+    }
+
 
     /**
      * Login
