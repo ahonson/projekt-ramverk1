@@ -52,6 +52,7 @@ if (count($allcomments) === 1) {
         <th>Text</th>
         <th>Created</th>
         <th>Score</th>
+        <th>Badge</th>
     </tr>
     <?php foreach ($allanswers as $index => $item) : ?>
     <tr>
@@ -59,6 +60,11 @@ if (count($allcomments) === 1) {
         <td><?= $item->info ?></td>
         <td><?= $item->created ?></td>
         <td><?= $item->rating ?></td>
+        <td><?php if ($item->accepted) : ?>
+                <span class="star"></span>
+            <?php else : ?>
+                ---
+            <?php endif; ?></td>
     </tr>
     <?php endforeach; ?>
 </table>

@@ -58,6 +58,11 @@ class Updatestuff
     public function editAnswer($value, $id)
     {
         $answer = $this->getstuff->getAnswer($id);
+        if ($answer->rating + $value >= 5) {
+            $answer->accepted = 1;
+        } else {
+            $answer->accepted = 0;
+        }
         $this->saveValue($answer, $value);
     }
 

@@ -7167,3 +7167,11 @@ tr:nth-child(even) {
     background-color: #ddb;
     font-weight: bold;
 }
+
+.star {
+    height: 30px;
+    width: 30px;
+    background-image: url("../img/theme/star.jpg");
+    display: inline-block;
+    background-size: contain;
+}

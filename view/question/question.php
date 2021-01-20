@@ -81,7 +81,11 @@ $markdown = new MarkdownExtra();
 <div class="questionanswer">
 
 </div>
-<h2 id="answer-<?= $index + 1 ?>">Svar nr <?= $index + 1 ?></h2>
+<h2 id="answer-<?= $index + 1 ?>">Svar nr <?= $index + 1 ?>
+    <?php if ($answer->accepted) : ?>
+    <span class="star"></span>
+<?php endif; ?>
+</h2>
 <div class="vote">
     <form class="upvote" action="" method="post">
         <input type="hidden" name="data" value="1;<?= $answer->id ?>;<?= $loginid ?>;answer-<?= $index + 1 ?>">
