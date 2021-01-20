@@ -84,4 +84,12 @@ class Updatestuff
         $object->rating += $value;
         $object->save();
     }
+
+    public function userScore($id, $score=1)
+    {
+        $user = $this->getstuff->getUser($id);
+        $user->setDb($this->di->get("dbqb"));
+        $user->rating += $score;
+        $user->save();
+    }
 }

@@ -20,11 +20,11 @@ endif;
         <th>Epost</th>
         <th>Gravatar</th>
         <th>Created</th>
-        <th>Score</th>
         <th>Totalt</th>
         <th>Frågor</th>
         <th>Svar</th>
         <th>Kommentarer</th>
+        <th>Score</th>
     </tr>
     <?php foreach ($top3users as $item) : ?>
     <tr>
@@ -35,11 +35,11 @@ endif;
         <td class=""><?= $item->email ?></td>
         <td class=""><img src="<?= $item->gravatar ?>" alt="Gravatar for <?= $item->name ?>"></td>
         <td><?= $item->created ?></td>
-        <td><?= $item->rating ?></td>
         <td><?= $item->total ?></td>
         <td><?= $item->questions ?></td>
         <td><?= $item->answers ?></td>
         <td><?= $item->comments ?></td>
+        <td><?= $item->rating ?></td>
     </tr>
     <?php endforeach; ?>
 </table>

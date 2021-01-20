@@ -13,6 +13,7 @@ use artes\User\UserRatesAnswer;
 use artes\User\UserRatesAComment;
 use artes\User\UserRatesQComment;
 use artes\User\UserRatesQuestion;
+use artes\Updatestuff\Updatestuff;
 
 /**
   * A class for adding stuff to the db.
@@ -32,37 +33,57 @@ class Createstuff
     {
         $ura = new UserRatesAnswer();
         $ura->answerid = $answerid;
-        $this->ratingSave($ura, $userid, $up);
+        $getstuff = new Getstuff($this->di);
+        $answer = $getstuff->getAnswer($answerid);
+        $authorid = $answer->userid;
+        $this->ratingSave($ura, $userid, $up, $authorid);
     }
 
     public function saveACommentRating($up, $commentid, $userid)
     {
         $urac = new UserRatesAComment();
         $urac->commentid = $commentid;
-        $this->ratingSave($urac, $userid, $up);
+        $getstuff = new Getstuff($this->di);
+        $comment = $getstuff->getComment($commentid, "a");
+        $authorid = $comment->userid;
+        $this->ratingSave($urac, $userid, $up, $authorid);
     }
 
     public function saveQCommentRating($up, $commentid, $userid)
     {
         $urqc = new UserRatesQComment();
         $urqc->commentid = $commentid;
-        $this->ratingSave($urqc, $userid, $up);
+        $getstuff = new Getstuff($this->di);
+        $comment = $getstuff->getComment($commentid, "q");
+        $authorid = $comment->userid;
+        $this->ratingSave($urqc, $userid, $up, $authorid);
     }
 
     public function saveQuestionRating($up, $questionid, $userid)
     {
         $urq = new UserRatesQuestion();
         $urq->questionid = $questionid;
-        $this->ratingSave($urq, $userid, $up);
+        $getstuff = new Getstuff($this->di);
+        $question = $getstuff->getQuestion($questionid);
+        $authorid = $question->userid;
+        $this->ratingSave($urq, $userid, $up, $authorid);
     }
 
-    public function ratingSave($object, $userid, $up)
+    public function ratingSave($object, $userid, $up, $authorid)
     {
         $object->up = $up;
         $object->userid = $userid;
         $object->created = $this->centralEuropeanTime();
         $object->setDb($this->di->get("dbqb"));
         $object->save();
+        $updatestuff = new Updatestuff($this->di);
+        $updatestuff->userScore($userid, 1);
+        $updatestuff->userScore($authorid, $up);
+    }
+
+    public function scoreForAuthor()
+    {
+
     }
 
     public function centralEuropeanTime()
@@ -90,7 +111,7 @@ class Createstuff
         $acomment->userid = $userid;
         $acomment->answerid = $answerid;
         $acomment->textbody = htmlentities($textbody);
-        $this->saveDefault($acomment);
+        $this->saveDefault($acomment, 3);
     }
 
     public function saveQComment($questionid, $userid, $textbody)
@@ -99,7 +120,7 @@ class Createstuff
         $qcomment->userid = $userid;
         $qcomment->questionid = $questionid;
         $qcomment->textbody = htmlentities($textbody);
-        $this->saveDefault($qcomment);
+        $this->saveDefault($qcomment, 3);
     }
 
     public function saveQuestion($title, $textbody, $userid, $tags)
@@ -139,10 +160,10 @@ class Createstuff
         $user->password = md5($password);
         $user->name = $name;
         $user->gravatar = "https://www.gravatar.com/avatar/" . md5($email). "?s=32&d=identicon&r=PG";
-        $this->saveDefault($user);
+        $this->saveDefault($user, false);
     }
 
-    public function saveDefault($object)
+    public function saveDefault($object, $score=5)
     {
         $object->rating = 0;
         $object->created = $this->centralEuropeanTime();
@@ -150,5 +171,9 @@ class Createstuff
         $object->deleted = null;
         $object->setDb($this->di->get("dbqb"));
         $object->save();
+        if ($score) {
+            $updatestuff = new Updatestuff($this->di);
+            $updatestuff->userScore($object->userid, $score);
+        }
     }
 }
