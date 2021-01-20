@@ -49,6 +49,7 @@ class LoginController implements ContainerInjectableInterface
         $session->set("success", "");
         $session->set("username", "");
         $session->set("email", "");
+        $session->set("failedlogin", "");
 
         $page->add("anax/v2/image/default", $data, "flash");
         $page->add("login/login", $logindata);

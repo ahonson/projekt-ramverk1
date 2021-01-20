@@ -146,14 +146,14 @@ class QuestionController implements ContainerInjectableInterface
         $response = $this->di->response;
         $session = $this->di->get("session");
         $loginid = $session->get("loginid") ? $session->get("loginid") : null;
+        if ($request->getPost("submitsort", null)) {
+            // $session = $this->di->session;
+            $session->set("sorttype", $request->getPost("sort"));
+            return $response->redirect("question/question/" . $nr . "#answer-1");
+        }
         if (!$loginid) {
             $session->set("failedlogin", "Du måste logga in för att rösta eller skriva frågor, svar och kommentarer.");
             return $response->redirect("login");
-        }
-        if ($request->getPost("submitsort", null)) {
-            $session = $this->di->session;
-            $session->set("sorttype", $request->getPost("sort"));
-            return $response->redirect("question/question/" . $nr . "#answer-1");
         }
 
         $list = explode(";", $request->getPost("data", null));
