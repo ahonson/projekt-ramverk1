@@ -44,16 +44,49 @@ class ProfileController implements ContainerInjectableInterface
         $email = $session->get("email");
         $getstuff = new Getstuff($this->di);
         $user = $getstuff->getUserExtra($email, "email");
+        $sing_plural = $this->plural($user->questions, $user->accepted, $user->comments, $user->up, $user->down); // returns an array of 6 words
         $userdata = [
             "user" => $user,
             "loginid" => $loginid,
-            "updatemsg" => $updatemsg
+            "updatemsg" => $updatemsg,
+            "sw_question" => $sing_plural[0],
+            "sw_accepted" => $sing_plural[1],
+            "sw_comment" => $sing_plural[2],
+            "sw_times" => $sing_plural[3],
+            "sw_upvote" => $sing_plural[4],
+            "sw_downvote" => $sing_plural[5]
         ];
         $page->add("anax/v2/image/default", $data, "flash");
         $page->add("profile/profile", $userdata);
         return $page->render([
             "title" => "User profile",
         ]);
+    }
+
+    public function plural($questions, $accepted, $comments, $up, $down) : array
+    {
+        $total = $up + $down;
+        $words = ["kommentar", "gång", "röst", "röst"];
+        $userattr = [$comments, $total, $up, $down];
+        if ($questions === 1) {
+            $sw_question = "fråga";
+        } else {
+            $sw_question = "frågor";
+        }
+        if ($accepted === 1) {
+            $sw_accepted = "accepterat";
+        } else {
+            $sw_accepted = "accepterade";
+        }
+        $res = [$sw_question, $sw_accepted];
+        for ($i=0; $i < count($userattr); $i++) {
+            if ($userattr[$i] === 1) {
+                array_push($res, $words[$i]);
+            } else {
+                array_push($res, $words[$i] . "er");
+            }
+        }
+        return $res;
     }
 
     public function indexActionPost($mydi=null) : object
@@ -80,12 +113,6 @@ class ProfileController implements ContainerInjectableInterface
 
         $response = $this->di->get("response");
         return $response->redirect("profile");
-        // var_dump($email);
-        // var_dump($name);
-        // var_dump($pass);
-        // var_dump($pass1);
-        // var_dump($pass2);
-        // die("---------------------");
     }
 
     public function checkPasswords($pass1, $pass2) : bool

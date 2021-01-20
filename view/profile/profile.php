@@ -12,9 +12,9 @@ namespace Anax\View;
     <p>Profiluppgifterna uppdaterades senast: <?= $user->updated ?>.</p>
 <?php endif; ?>
 <p>Ditt reputationscore är <strong><?= $user->rating ?></strong>.</p>
-<p>Du har skrivit <strong><?= $user->questions ?> frågor</strong>, <strong><?= $user->answers ?> svar</strong> och <strong><?= $user->comments ?> kommentarer</strong>.</p>
-<p>Du har skrivit <strong><?= $user->accepted ?> accepterade svar</strong>.</p>
-<p>Du har röstat <strong><?= $user->up + $user->down ?> gånger</strong> (<?= $user->up ?> uppåtröster och <?= $user->down ?> nedåtröster).</p>
+<p>Du har skrivit <strong><?= $user->questions . " " . $sw_question ?></strong>, <strong><?= $user->answers ?> svar</strong> och <strong><?= $user->comments . " " . $sw_comment ?></strong>.</p>
+<p>Du har skrivit <strong><?= $user->accepted . " " . $sw_accepted ?> svar</strong>.</p>
+<p>Du har röstat <strong><?= $user->up + $user->down . " " . $sw_times ?></strong> (<?= $user->up ?> uppåt<?= $sw_upvote ?> och <?= $user->down ?> nedåt<?= $sw_downvote ?>).</p>
 
 <h2>Nytt lösenord</h2>
 <p>Här kan du ändra ditt lösenord. OBS! Ett giltigt lösenord består av minst 6 tecken. Det innehåller minst en siffra, en liten och en stor bokstav.</p>

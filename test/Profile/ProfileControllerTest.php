@@ -71,4 +71,13 @@ class ProfileControllerTest extends TestCase
         // $res1 = $profilecontroller->indexActionGet($this->di);
         $this->assertInstanceOf(ResponseUtility::class, $res);
     }
+
+    public function testPlural()
+    {
+        $profilecontroller = new ProfileController();
+        $res = $profilecontroller->plural(3, 1, 1, 0, 3);
+        $res1 = $profilecontroller->plural(1, 3, 1, 0, 3);
+        $this->assertIsArray($res);
+        $this->assertIsArray($res1);
+    }
 }
