@@ -62,10 +62,13 @@ class QuestionController implements ContainerInjectableInterface
         if ($mydi) {
             $this->di = $mydi;
         }
+        $session = $this->di->get("session");
+        $sorttype = $session->get("sorttype", null);
+
         $page = $this->di->get("page");
         $getstuff = new Getstuff($this->di);
         $item = $getstuff->getQuestion($nr);
-        $answers = $getstuff->getAnswers($item->id);
+        $answers = $getstuff->getAnswers($item->id, $sorttype);
         $res = $getstuff->questToTag([$item]);
         $mytags = $getstuff->getTags($res);
         $user = $getstuff->getUser($item->userid);
@@ -82,7 +85,8 @@ class QuestionController implements ContainerInjectableInterface
             "answers" => $answers,
             "user" => $user,
             "comments" => $comments,
-            "loginid" => $loginid
+            "loginid" => $loginid,
+            "sortchoice" => $sorttype
         ]);
 
         return $page->render([
@@ -138,6 +142,7 @@ class QuestionController implements ContainerInjectableInterface
      */
     public function questionActionPost($nr) : object
     {
+        $request = $this->di->request;
         $response = $this->di->response;
         $session = $this->di->get("session");
         $loginid = $session->get("loginid") ? $session->get("loginid") : null;
@@ -145,7 +150,12 @@ class QuestionController implements ContainerInjectableInterface
             $session->set("failedlogin", "Du måste logga in för att rösta eller skriva frågor, svar och kommentarer.");
             return $response->redirect("login");
         }
-        $request = $this->di->request;
+        if ($request->getPost("submitsort", null)) {
+            $session = $this->di->session;
+            $session->set("sorttype", $request->getPost("sort"));
+            return $response->redirect("question/question/" . $nr . "#answer-1");
+        }
+
         $list = explode(";", $request->getPost("data", null));
         $this->rateContent($list, $request);
         $this->saveContent($list, $request);
@@ -232,5 +242,10 @@ class QuestionController implements ContainerInjectableInterface
             $createstuff->saveQuestion($title, $textbody, $userid, $tags);
             return $response->redirect("question/");
         }
+    }
+
+    public function sortgetActionPost() : object
+    {
+        die("jgjgnghnghnghngh--------------");
     }
 }

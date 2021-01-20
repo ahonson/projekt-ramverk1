@@ -69,7 +69,7 @@ class Getstuff
         return $answer;
     }
 
-    public function getAnswers($id) : array
+    public function getAnswers($id, $sorttype=null) : array
     {
         $answer = new Answer();
         $answer->setDb($this->di->get("dbqb"));
@@ -81,7 +81,22 @@ class Getstuff
             $answers[$i]->userid = $this->getUser($userid)->id;
             $answers[$i]->comments = $this->getComments($answers[$i]->id, "a");
         }
-
+        if ($sorttype === "datumdesc") {
+            $answers = array_reverse($answers);
+        } elseif ($sorttype === "rankasc") {
+            usort($answers, function($first, $second) {
+                return $first->rating > $second->rating;
+            });
+        } elseif ($sorttype === "rankdesc") {
+            usort($answers, function($first, $second) {
+                return $first->rating < $second->rating;
+            });
+        }
+        // if ($sorttype) {
+        //     var_dump($sorttype);
+        //     var_dump($answers);
+        //     die("++++++++++++++++++++++++++++++++++++++");
+        // }
         return $answers;
     }
 
