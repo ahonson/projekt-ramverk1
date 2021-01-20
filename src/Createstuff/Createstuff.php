@@ -117,10 +117,12 @@ class Createstuff
         $getstuff = new Getstuff($this->di);
         $questions = $getstuff->getQuestionsWhere("textbody = ?", htmlentities($textbody));
         $id = 1;
-        for ($i=0; $i < count($questions); $i++) {
+        $questionlength = count($questions);
+        for ($i=0; $i < $questionlength; $i++) {
             $id = $questions[$i]->id;
         }
-        for ($i=0; $i < count($tags); $i++) {
+        $taglength = count($tags);
+        for ($i=0; $i < $taglength; $i++) {
             $q2t = new QuestionHasTag();
             $q2t->setDb($this->di->get("dbqb"));
             $q2t->questionid = $id;

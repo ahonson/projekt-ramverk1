@@ -79,7 +79,8 @@ class ProfileController implements ContainerInjectableInterface
             $sw_accepted = "accepterade";
         }
         $res = [$sw_question, $sw_accepted];
-        for ($i=0; $i < count($userattr); $i++) {
+        $length = count($userattr);
+        for ($i=0; $i < $length; $i++) {
             if ($userattr[$i] === 1) {
                 array_push($res, $words[$i]);
             } else {
@@ -104,7 +105,7 @@ class ProfileController implements ContainerInjectableInterface
         $getstuff = new Getstuff($this->di);
         $user = $getstuff->getUserExtra($email, "email");
 
-        if ($user->email === $email && $this->checkPasswords($pass1, $pass2)) {
+        if ($user->password === $pass && $this->checkPasswords($pass1, $pass2)) {
             $updatestuff = new Updatestuff($this->di);
             $updatestuff->editUser($user->id, $pass1);
         } else {

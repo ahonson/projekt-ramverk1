@@ -177,7 +177,8 @@ class LoginController implements ContainerInjectableInterface
     {
         $getstuff = new Getstuff($this->di);
         $users = $getstuff->getUsers();
-        for ($i = 0; $i < count($users); $i++) {
+        $userlength = count($users);
+        for ($i = 0; $i < $userlength; $i++) {
             if ($users[$i]->email == $email) {
                 return false;
             }

@@ -54,7 +54,8 @@ class Getstuff
         $answer = new Answer();
         $answer->setDb($this->di->get("dbqb"));
         $answers = $answer->findAllWhere($search, $nr);
-        for ($i = 0; $i < count($answers); $i++) {
+        $answerlength = count($answers);
+        for ($i = 0; $i < $answerlength; $i++) {
             $answers[$i] = $this->addInfo($answers[$i]);
         }
         return $answers;
@@ -73,7 +74,8 @@ class Getstuff
         $answer = new Answer();
         $answer->setDb($this->di->get("dbqb"));
         $answers = $answer->findAllWhere("questionid = ?", $id);
-        for ($i = 0; $i < count($answers); $i++) {
+        $answerlength = count($answers);
+        for ($i = 0; $i < $answerlength; $i++) {
             $userid = $answers[$i]->userid;
             $answers[$i]->username = $this->getUser($userid)->name;
             $answers[$i]->userid = $this->getUser($userid)->id;
@@ -108,7 +110,8 @@ class Getstuff
         }
         $comment->setDb($this->di->get("dbqb"));
         $items = $comment->findAllWhere($search, $nr);
-        for ($i = 0; $i < count($items); $i++) {
+        $itemlength = count($items);
+        for ($i = 0; $i < $itemlength; $i++) {
             $userid = $items[$i]->userid;
             $items[$i]->username = $this->getUser($userid)->name;
             $items[$i]->userid = $userid;
@@ -124,7 +127,8 @@ class Getstuff
 
         $qcomment->setDb($this->di->get("dbqb"));
         $qitems = $qcomment->findAllWhere($search, $nr);
-        for ($i = 0; $i < count($qitems); $i++) {
+        $qitemlength = count($qitems);
+        for ($i = 0; $i < $qitemlength; $i++) {
             $userid = $qitems[$i]->userid;
             $qitems[$i]->username = $this->getUser($userid)->name;
             $qitems[$i] = $this->addInfo($qitems[$i]);
@@ -132,7 +136,8 @@ class Getstuff
 
         $acomment->setDb($this->di->get("dbqb"));
         $aitems = $acomment->findAllWhere($search, $nr);
-        for ($i = 0; $i < count($aitems); $i++) {
+        $aitemlength = count($aitems);
+        for ($i = 0; $i < $aitemlength; $i++) {
             $userid = $aitems[$i]->userid;
             $aitems[$i]->username = $this->getUser($userid)->name;
             $ans = $this->getAnswer($aitems[$i]->answerid);
@@ -157,7 +162,8 @@ class Getstuff
         $question = new Question();
         $question->setDb($this->di->get("dbqb"));
         $items = $question->findAll();
-        for ($i=0; $i < count($items); $i++) {
+        $itemlength = count($items);
+        for ($i=0; $i < $itemlength; $i++) {
             $answers = $this->getAnswers($items[$i]->id);
             $items[$i]->answercount = count($answers);
         }
@@ -193,9 +199,11 @@ class Getstuff
         $tag = new Tag();
         $tag->setDb($this->di->get("dbqb"));
         $mytags = [];
-        for ($i = 0; $i < count($res); $i++) {
+        $reslength = count($res);
+        for ($i = 0; $i < $reslength; $i++) {
             $myarray = [];
-            for ($j = 0; $j < count($res[$i]); $j++) {
+            $sublength = count($res[$i]);
+            for ($j = 0; $j < $sublength; $j++) {
                 $myvar = $tag->find("id", $res[$i][$j]->tagid);
                 $myarray[$res[$i][$j]->tagid] = $myvar->name;
             }
@@ -211,7 +219,8 @@ class Getstuff
     public function getTopUsers($limit) : array
     {
         $users = $this->getUsers();
-        for ($i=0; $i < count($users); $i++) {
+        $userlength = count($users);
+        for ($i=0; $i < $userlength; $i++) {
             $questions = $this->getQuestionsWhere("userid = ?", $users[$i]->id);
             $allcomments = $this->getAllCommentsWhere($users[$i]->id);
             $allanswers = $this->getAllAnswersWhere($users[$i]->id);
@@ -285,7 +294,8 @@ class Getstuff
         $qht = new QuestionHasTag();
         $qht->setDb($this->di->get("dbqb"));
         $res = [];
-        for ($i = 0; $i < count($questions); $i++) {
+        $questionlength = count($questions);
+        for ($i = 0; $i < $questionlength; $i++) {
             $myvar = $qht->findAllWhere($search, $questions[$i]->id);
             array_push($res, $myvar);
         }
@@ -298,7 +308,8 @@ class Getstuff
         $qht->setDb($this->di->get("dbqb"));
         $matches = $qht->findAllWhere("tagid = ?", $nr);
         $res = [];
-        for ($i = 0; $i < count($matches); $i++) {
+        $matchlength = count($matches);
+        for ($i = 0; $i < $matchlength; $i++) {
             $myvar = $this->getQuestion($matches[$i]->questionid);
             array_push($res, $myvar);
         }
