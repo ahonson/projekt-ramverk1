@@ -243,9 +243,4 @@ class QuestionController implements ContainerInjectableInterface
             return $response->redirect("question/");
         }
     }
-
-    public function sortgetActionPost() : object
-    {
-        die("jgjgnghnghnghngh--------------");
-    }
 }
