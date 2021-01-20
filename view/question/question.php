@@ -76,6 +76,17 @@ $markdown = new MarkdownExtra();
     <!-- <a class="writetext" href="../../login">Skriv en kommentar</a> -->
 <?php endif; ?>
 
+<form class="sortform" action="" method="post">
+    <input type="submit" name="submitsort" value="Sortera svaren">
+    <label for="sort"> efter</label>
+    <select class="" name="sort">
+        <option value="datumasc">Datum - stigande</option>
+        <option value="datumdesc">Datum - nedåtgående</option>
+        <option value="rankasc">Rank - stigande</option>
+        <option value="rankdesc">Rank - nedåtgående</option>
+    </select>
+</form>
+
 <?php foreach ($answers as $index => $answer) : ?>
 
 <div class="questionanswer">

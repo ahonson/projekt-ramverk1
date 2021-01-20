@@ -15,6 +15,7 @@ namespace Anax\View;
 <p>Du har skrivit <strong><?= $user->questions . " " . $sw_question ?></strong>, <strong><?= $user->answers ?> svar</strong> och <strong><?= $user->comments . " " . $sw_comment ?></strong>.</p>
 <p>Du har skrivit <strong><?= $user->accepted . " " . $sw_accepted ?> svar</strong>.</p>
 <p>Du har röstat <strong><?= $user->up + $user->down . " " . $sw_times ?></strong> (<?= $user->up ?> uppåt<?= $sw_upvote ?> och <?= $user->down ?> nedåt<?= $sw_downvote ?>).</p>
+<a class="questiontag" href="user/user/<?= $user->id ?>">Länk till <?= $user->name ?>s texter</a>
 
 <h2>Nytt lösenord</h2>
 <p>Här kan du ändra ditt lösenord. OBS! Ett giltigt lösenord består av minst 6 tecken. Det innehåller minst en siffra, en liten och en stor bokstav.</p>
