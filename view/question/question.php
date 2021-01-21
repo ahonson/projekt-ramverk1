@@ -82,9 +82,9 @@ $markdown = new MarkdownExtra();
     <label for="sort"> efter</label>
     <select class="" name="sort" value="<?= $sortchoice ?>">
         <option value="datumasc" <?= $sortchoice === 'datumasc' ? ' selected="selected"' : '';?>>Datum - stigande</option>
-        <option value="datumdesc" <?= $sortchoice === 'datumdesc' ? ' selected="selected"' : '';?>>Datum - nedåtgående</option>
+        <option value="datumdesc" <?= $sortchoice === 'datumdesc' ? ' selected="selected"' : '';?>>Datum - fallande</option>
         <option value="rankasc" <?= $sortchoice === 'rankasc' ? ' selected="selected"' : '';?>>Rank - stigande</option>
-        <option value="rankdesc" <?= $sortchoice === 'rankdesc' ? ' selected="selected"' : '';?>>Rank - nedåtgående</option>
+        <option value="rankdesc" <?= $sortchoice === 'rankdesc' ? ' selected="selected"' : '';?>>Rank - fallande</option>
     </select>
 </form>
 <?php endif; ?>

@@ -6984,6 +6984,10 @@ td a {
     color: #FFFF66;
 }
 
+td a:hover {
+    color: #fff;
+}
+
 td a:visited {
     color: #eec;
 }
@@ -7178,4 +7182,9 @@ tr:nth-child(even) {
 
 .sortform {
     padding-top: 50px;
+}
+
+.selectednavbar {
+    border-bottom: 4px solid #834400;
+    border-radius: 15px;
 }
