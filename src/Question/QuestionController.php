@@ -229,7 +229,9 @@ class QuestionController implements ContainerInjectableInterface
         $createstuff = new Createstuff($this->di);
         $title = $request->getPost("title");
         $textbody = $request->getPost("textbody");
-        $userid = 3;
+
+        $session = $this->di->get("session");
+        $loginid = $session->get("loginid") ? $session->get("loginid") : null;
         $tags = [];
         if(!empty($request->getPost("tagname"))) {
             foreach($request->getPost("tagname") as $tagname) {
@@ -239,7 +241,7 @@ class QuestionController implements ContainerInjectableInterface
         if (!$title || !$textbody || !$tags) {
             return $response->redirect("question/newquestion");
         } else {
-            $createstuff->saveQuestion($title, $textbody, $userid, $tags);
+            $createstuff->saveQuestion($title, $textbody, $loginid, $tags);
             return $response->redirect("question/");
         }
     }
